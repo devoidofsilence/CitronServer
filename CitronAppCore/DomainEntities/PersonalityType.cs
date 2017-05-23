@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CitronAppCore.DomainEntities
 {
-    public class Designation : IDomainEntity
+    public class PersonalityType: IDomainEntity
     {
-        public string DesignationCode { get; set; }
-        public string DesignationName { get; set; }
+        public string PersonalityTypeCode { get; set; }
+        public string PersonalityTypeName { get; set; }
     }
 }

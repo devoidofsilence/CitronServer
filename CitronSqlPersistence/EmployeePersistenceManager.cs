@@ -4,6 +4,7 @@ using CitronAppCore.DomainEntities;
 using CitronInfrastructure.PersistenceManagers;
 using CitronSqlPersistence.PersistenceEntities;
 using System.Linq;
+using CitronWeb.Utils;
 
 namespace CitronSqlPersistence
 {
@@ -14,25 +15,28 @@ namespace CitronSqlPersistence
         {
             var employeePersistenceEntity = new EmployeePersistenceEntity()
             {
-                Code = employee.Code,
-                Name = employee.Name,
-                Photo = employee.Photo,
-                Birthday = Convert.ToDateTime(employee.Birthday),
-                MaritalStatus = string.IsNullOrEmpty(employee.MaritalStatus) ? (int?)null : int.Parse(employee.MaritalStatus),
-                PersonalityType = string.IsNullOrEmpty(employee.PersonalityType) ? (int?)null : int.Parse(employee.PersonalityType),
-                BloodGroup = string.IsNullOrEmpty(employee.BloodGroup) ? (int?)null : int.Parse(employee.BloodGroup),
-                CitizenshipNo = employee.CitizenshipNo,
-                EmailId = employee.EmailId,
-                LocalAddress = employee.LocalAddress,
-                LocalAddressContactNo = employee.LocalAddressContactNo,
-                PermanentAddress = employee.PermanentAddress,
-                PermanentAddressContactNo = employee.PermanentAddressContactNo,
-                EmergencyAddress = employee.EmergencyAddress,
-                EmergencyAddressContactNo = employee.EmergencyAddressContactNo,
-                GooglePlusLink = employee.GooglePlusLink,
-                FacebookLink = employee.FacebookLink,
-                TwitterLink = employee.TwitterLink,
-                LinkedInLink = employee.LinkedInLink
+                Code = employee.Code.NullIfEmptyString(),
+                Name = employee.Name.NullIfEmptyString(),
+                Photo = employee.Photo.NullIfEmptyString(),
+                Birthday = employee.Birthday.NullDateIfEmptyString(),
+                MaritalStatus = employee.MaritalStatus.NullIntIfEmptyString(),
+                PersonalityType = employee.PersonalityType.NullIntIfEmptyString(),
+                BloodGroup = employee.BloodGroup.NullIntIfEmptyString(),
+                CitizenshipNo = employee.CitizenshipNo.NullIfEmptyString(),
+                EmailId = employee.EmailId.NullIfEmptyString(),
+                LocalAddress = employee.LocalAddress.NullIfEmptyString(),
+                LocalAddressContactNo = employee.LocalAddressContactNo.NullIfEmptyString(),
+                LocalAddressMobileNo = employee.LocalAddressMobileNo.NullIfEmptyString(),
+                PermanentAddress = employee.PermanentAddress.NullIfEmptyString(),
+                PermanentAddressContactNo = employee.PermanentAddressContactNo.NullIfEmptyString(),
+                PermanentAddressMobileNo = employee.PermanentAddressMobileNo.NullIfEmptyString(),
+                EmergencyAddress = employee.EmergencyAddress.NullIfEmptyString(),
+                EmergencyAddressContactNo = employee.EmergencyAddressContactNo.NullIfEmptyString(),
+                EmergencyAddressMobileNo = employee.EmergencyAddressMobileNo.NullIfEmptyString(),
+                GooglePlusLink = employee.GooglePlusLink.NullIfEmptyString(),
+                FacebookLink = employee.FacebookLink.NullIfEmptyString(),
+                TwitterLink = employee.TwitterLink.NullIfEmptyString(),
+                LinkedInLink = employee.LinkedInLink.NullIfEmptyString()
             };
 
             db.EmployeePersistenceEntities.Add(employeePersistenceEntity);
@@ -43,28 +47,28 @@ namespace CitronSqlPersistence
         public Employee Update(Employee employee)
         {
             var employeePersistenceEntity = db.EmployeePersistenceEntities.FirstOrDefault(e => e.Code == employee.Code);
-            employeePersistenceEntity.Code = employee.Code;
-            employeePersistenceEntity.Name = employee.Name;
-            employeePersistenceEntity.Photo = employee.Photo;
-            employeePersistenceEntity.Birthday = Convert.ToDateTime(employee.Birthday);
-            employeePersistenceEntity.MaritalStatus = string.IsNullOrEmpty(employee.MaritalStatus) ? (int?)null : int.Parse(employee.MaritalStatus);
-            employeePersistenceEntity.PersonalityType = string.IsNullOrEmpty(employee.PersonalityType) ? (int?)null : int.Parse(employee.PersonalityType);
-            employeePersistenceEntity.BloodGroup = string.IsNullOrEmpty(employee.BloodGroup) ? (int?)null : int.Parse(employee.BloodGroup);
-            employeePersistenceEntity.CitizenshipNo = employee.CitizenshipNo;
-            employeePersistenceEntity.EmailId = employee.EmailId;
-            employeePersistenceEntity.LocalAddress = employee.LocalAddress;
-            employeePersistenceEntity.LocalAddressContactNo = employee.LocalAddressContactNo;
-            employeePersistenceEntity.LocalAddressMobileNo = employee.LocalAddressMobileNo;
-            employeePersistenceEntity.PermanentAddress = employee.PermanentAddress;
-            employeePersistenceEntity.PermanentAddressContactNo = employee.PermanentAddressContactNo;
-            employeePersistenceEntity.PermanentAddressMobileNo = employee.PermanentAddressMobileNo;
-            employeePersistenceEntity.EmergencyAddress = employee.EmergencyAddress;
-            employeePersistenceEntity.EmergencyAddressContactNo = employee.EmergencyAddressContactNo;
-            employeePersistenceEntity.EmergencyAddressMobileNo = employee.EmergencyAddressMobileNo;
-            employeePersistenceEntity.GooglePlusLink = employee.GooglePlusLink;
-            employeePersistenceEntity.FacebookLink = employee.FacebookLink;
-            employeePersistenceEntity.TwitterLink = employee.TwitterLink;
-            employeePersistenceEntity.LinkedInLink = employee.LinkedInLink;
+            employeePersistenceEntity.Code = employee.Code.NullIfEmptyString();
+            employeePersistenceEntity.Name = employee.Name.NullIfEmptyString();
+            employeePersistenceEntity.Photo = employee.Photo.NullIfEmptyString();
+            employeePersistenceEntity.Birthday = employee.Birthday.NullDateIfEmptyString();
+            employeePersistenceEntity.MaritalStatus = employee.MaritalStatus.NullIntIfEmptyString();
+            employeePersistenceEntity.PersonalityType = employee.PersonalityType.NullIntIfEmptyString();
+            employeePersistenceEntity.BloodGroup = employee.BloodGroup.NullIntIfEmptyString();
+            employeePersistenceEntity.CitizenshipNo = employee.CitizenshipNo.NullIfEmptyString();
+            employeePersistenceEntity.EmailId = employee.EmailId.NullIfEmptyString();
+            employeePersistenceEntity.LocalAddress = employee.LocalAddress.NullIfEmptyString();
+            employeePersistenceEntity.LocalAddressContactNo = employee.LocalAddressContactNo.NullIfEmptyString();
+            employeePersistenceEntity.LocalAddressMobileNo = employee.LocalAddressMobileNo.NullIfEmptyString();
+            employeePersistenceEntity.PermanentAddress = employee.PermanentAddress.NullIfEmptyString();
+            employeePersistenceEntity.PermanentAddressContactNo = employee.PermanentAddressContactNo.NullIfEmptyString();
+            employeePersistenceEntity.PermanentAddressMobileNo = employee.PermanentAddressMobileNo.NullIfEmptyString();
+            employeePersistenceEntity.EmergencyAddress = employee.EmergencyAddress.NullIfEmptyString();
+            employeePersistenceEntity.EmergencyAddressContactNo = employee.EmergencyAddressContactNo.NullIfEmptyString();
+            employeePersistenceEntity.EmergencyAddressMobileNo = employee.EmergencyAddressMobileNo.NullIfEmptyString();
+            employeePersistenceEntity.GooglePlusLink = employee.GooglePlusLink.NullIfEmptyString();
+            employeePersistenceEntity.FacebookLink = employee.FacebookLink.NullIfEmptyString();
+            employeePersistenceEntity.TwitterLink = employee.TwitterLink.NullIfEmptyString();
+            employeePersistenceEntity.LinkedInLink = employee.LinkedInLink.NullIfEmptyString();
 
             db.SaveChanges();
             return employee;
@@ -79,10 +83,14 @@ namespace CitronSqlPersistence
             return employee;
         }
 
-        public Employee Find(string id)
+        public Employee Find(string code)
         {
-            var employeePersistenceEntity = db.EmployeePersistenceEntities.FirstOrDefault(e => e.Code == id);
-            Employee employee = new Employee() { Code = employeePersistenceEntity.Code };
+            var employeePersistenceEntity = db.EmployeePersistenceEntities.FirstOrDefault(e => e.Code == code);
+            Employee employee = new Employee();
+            if (employeePersistenceEntity != null)
+            {
+                employee.Code = employeePersistenceEntity.Code;
+            }
             return employee;
         }
 

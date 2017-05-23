@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CitronAppCore.DomainEntities
 {
-    public class Designation : IDomainEntity
+    public class BloodGroup : IDomainEntity
     {
-        public string DesignationCode { get; set; }
-        public string DesignationName { get; set; }
+        public string BloodGroupCode { get; set; }
+        public string BloodGroupName { get; set; }
     }
 }

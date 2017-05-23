@@ -43,6 +43,10 @@
     <Compile Include="EmployeeManager.cs" />
     <Compile Include="Exceptions\EmployeeAlreadyExistsException.cs" />
     <Compile Include="Exceptions\EmployeeNotFoundException.cs" />
+    <Compile Include="PersistenceManagers\IAllowancePersistenceManager.cs" />
+    <Compile Include="PersistenceManagers\IBloodGroupPersistenceManager.cs" />
+    <Compile Include="PersistenceManagers\IJobDepartmentPersistenceManager.cs" />
+    <Compile Include="PersistenceManagers\IJobDesignationPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IEmployeeAccountDetailPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IEmployeeAllowanceDetailPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IEmployeeJobDepartmentDetailPersistenceManager.cs" />
@@ -51,7 +55,9 @@
     <Compile Include="PersistenceManagers\IEmployeePersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IEmployeeSalaryHistoryPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\ILeavePersistenceManager.cs" />
+    <Compile Include="PersistenceManagers\IMaritalStatusPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IPersistenceManager.cs" />
+    <Compile Include="PersistenceManagers\IPersonalityTypePersistenceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

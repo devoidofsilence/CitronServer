@@ -18,14 +18,8 @@ namespace CitronWeb.Controllers
         {
             _employeeManager = employeeManager;
         }
+
         // GET api/<controller>
-        
-        public string Temp()
-        {
-            return "temp method";
-        }
-
-
         [HttpPost]
         public object RecruitEmployee([FromBody] Employee employee)
         {

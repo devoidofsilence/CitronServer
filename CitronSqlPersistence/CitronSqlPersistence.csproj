@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllowancePersistenceManager.cs" />
+    <Compile Include="BloodGroupPersistenceManager.cs" />
     <Compile Include="ConfigurationPersistenceEntities\AllowancePersistenceEntity.cs" />
     <Compile Include="ConfigurationPersistenceEntities\BloodGroupPersistenceEntity.cs" />
     <Compile Include="ConfigurationPersistenceEntities\JobDepartmentPersistenceEntity.cs" />
@@ -62,7 +64,10 @@
     <Compile Include="EmployeeJobHistoryPersistenceManager.cs" />
     <Compile Include="EmployeePersistenceManager.cs" />
     <Compile Include="EmployeeSalaryHistoryPersistenceManager.cs" />
+    <Compile Include="JobDepartmentPersistenceManager.cs" />
+    <Compile Include="JobDesignationPersistenceManager.cs" />
     <Compile Include="LeavePersistenceManager.cs" />
+    <Compile Include="MaritalStatusPersistenceManager.cs" />
     <Compile Include="Migrations\201705170441572_initial.cs" />
     <Compile Include="Migrations\201705170441572_initial.Designer.cs">
       <DependentUpon>201705170441572_initial.cs</DependentUpon>
@@ -112,8 +117,10 @@
     <Compile Include="PersistenceEntities\EmployeePersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\EmployeeSalaryHistoryPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\LeavePersistenceEntity.cs" />
+    <Compile Include="PersonalityTypePersistenceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlDbContext.cs" />
+    <Compile Include="Utils\ParseUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CitronAppCore\CitronAppCore.csproj">

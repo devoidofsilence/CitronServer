@@ -41,10 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainEntities\Allowance.cs" />
+    <Compile Include="DomainEntities\BloodGroup.cs" />
     <Compile Include="DomainEntities\Department.cs" />
     <Compile Include="DomainEntities\Employee.cs" />
     <Compile Include="DomainEntities\Designation.cs" />
     <Compile Include="DomainEntities\IDomainEntity.cs" />
+    <Compile Include="DomainEntities\MaritalStatus.cs" />
+    <Compile Include="DomainEntities\PersonalityType.cs" />
     <Compile Include="DomainManagers\IEmployeeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
