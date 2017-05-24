@@ -13,7 +13,7 @@ namespace CitronSqlPersistence.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201705170441572_initial"; }
+            get { return "201705241326002_initial"; }
         }
         
         string IMigrationMetadata.Source

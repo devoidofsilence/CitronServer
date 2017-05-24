@@ -10,6 +10,7 @@ namespace CitronSqlPersistence
 {
     public class PersonalityTypePersistenceManager : IPersonalityTypePersistenceManager
     {
+        SqlDbContext db = new SqlDbContext();
         public PersonalityType Create(PersonalityType domainEntity)
         {
             throw new NotImplementedException();
@@ -27,7 +28,16 @@ namespace CitronSqlPersistence
 
         public IList<PersonalityType> FindAll(Func<PersonalityType, bool> condition)
         {
-            throw new NotImplementedException();
+            IList<PersonalityType> personalityTypes = new List<PersonalityType>();
+            var personalityTypeEntities = db.personalityTypePersistenceEntities;//.Where(condition);
+            foreach (var personalityType in personalityTypeEntities)
+            {
+                personalityTypes.Add(new PersonalityType() {
+                    PersonalityTypeCode = personalityType.Code,
+                    PersonalityTypeName = personalityType.Description
+                });
+            }
+            return personalityTypes;
         }
 
         public PersonalityType Read(string identifier)

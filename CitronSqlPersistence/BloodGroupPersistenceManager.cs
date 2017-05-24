@@ -10,6 +10,7 @@ namespace CitronSqlPersistence
 {
     public class BloodGroupPersistenceManager : IBloodGroupPersistenceManager
     {
+        SqlDbContext db = new SqlDbContext();
         public BloodGroup Create(BloodGroup domainEntity)
         {
             throw new NotImplementedException();
@@ -27,7 +28,17 @@ namespace CitronSqlPersistence
 
         public IList<BloodGroup> FindAll(Func<BloodGroup, bool> condition)
         {
-            throw new NotImplementedException();
+            IList<BloodGroup> bloodGroups = new List<BloodGroup>();
+            var bloodGroupEntities = db.bloodGroupPersistenceEntities;//.Where(condition);
+            foreach (var bloodGroup in bloodGroupEntities)
+            {
+                bloodGroups.Add(new BloodGroup()
+                {
+                    BloodGroupCode = bloodGroup.Code,
+                    BloodGroupName = bloodGroup.Description
+                });
+            }
+            return bloodGroups;
         }
 
         public BloodGroup Read(string identifier)

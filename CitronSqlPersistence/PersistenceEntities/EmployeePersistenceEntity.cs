@@ -18,7 +18,7 @@ namespace CitronSqlPersistence.PersistenceEntities
         public string Code { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Photo { get; set; }
+        public byte[] Photo { get; set; }
         public DateTime? Birthday { get; set; }
         public int? MaritalStatus { get; set; }
         public int? PersonalityType { get; set; }

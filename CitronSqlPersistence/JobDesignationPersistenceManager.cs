@@ -10,6 +10,7 @@ namespace CitronSqlPersistence
 {
     public class JobDesignationPersistenceManager : IJobDesignationPersistenceManager
     {
+        SqlDbContext db = new SqlDbContext();
         public Designation Create(Designation domainEntity)
         {
             throw new NotImplementedException();
@@ -32,7 +33,17 @@ namespace CitronSqlPersistence
 
         public IList<Designation> FindAll(Func<Designation, bool> condition)
         {
-            throw new NotImplementedException();
+            IList<Designation> jobDesignations = new List<Designation>();
+            var jobDesignationEntities = db.jobDesignationPersistenceEntities;//.Where(condition);
+            foreach (var jobDesignation in jobDesignationEntities)
+            {
+                jobDesignations.Add(new Designation()
+                {
+                    DesignationCode = jobDesignation.Code,
+                    DesignationName = jobDesignation.Description
+                });
+            }
+            return jobDesignations;
         }
 
         public Designation Read(string identifier)

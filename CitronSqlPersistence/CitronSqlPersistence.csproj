@@ -68,45 +68,9 @@
     <Compile Include="JobDesignationPersistenceManager.cs" />
     <Compile Include="LeavePersistenceManager.cs" />
     <Compile Include="MaritalStatusPersistenceManager.cs" />
-    <Compile Include="Migrations\201705170441572_initial.cs" />
-    <Compile Include="Migrations\201705170441572_initial.Designer.cs">
-      <DependentUpon>201705170441572_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705170810056_added table for allowance and job history detail.cs" />
-    <Compile Include="Migrations\201705170810056_added table for allowance and job history detail.Designer.cs">
-      <DependentUpon>201705170810056_added table for allowance and job history detail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705170921192_updated database.cs" />
-    <Compile Include="Migrations\201705170921192_updated database.Designer.cs">
-      <DependentUpon>201705170921192_updated database.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705171109103_updated database with corrented fields.cs" />
-    <Compile Include="Migrations\201705171109103_updated database with corrented fields.Designer.cs">
-      <DependentUpon>201705171109103_updated database with corrented fields.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705171119091_updated database with corrected nullable types.cs" />
-    <Compile Include="Migrations\201705171119091_updated database with corrected nullable types.Designer.cs">
-      <DependentUpon>201705171119091_updated database with corrected nullable types.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705180948146_new tables added.cs" />
-    <Compile Include="Migrations\201705180948146_new tables added.Designer.cs">
-      <DependentUpon>201705180948146_new tables added.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705190541576_added Foreign Keys.cs" />
-    <Compile Include="Migrations\201705190541576_added Foreign Keys.Designer.cs">
-      <DependentUpon>201705190541576_added Foreign Keys.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705220827143_Foreign keys added in tables.cs" />
-    <Compile Include="Migrations\201705220827143_Foreign keys added in tables.Designer.cs">
-      <DependentUpon>201705220827143_Foreign keys added in tables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705220903317_unique keys added in tables 2.cs" />
-    <Compile Include="Migrations\201705220903317_unique keys added in tables 2.Designer.cs">
-      <DependentUpon>201705220903317_unique keys added in tables 2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705220906355_New changes regarding keys2.cs" />
-    <Compile Include="Migrations\201705220906355_New changes regarding keys2.Designer.cs">
-      <DependentUpon>201705220906355_New changes regarding keys2.cs</DependentUpon>
+    <Compile Include="Migrations\201705241326002_initial.cs" />
+    <Compile Include="Migrations\201705241326002_initial.Designer.cs">
+      <DependentUpon>201705241326002_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PersistenceEntities\EmployeeAccountDetailPersistenceEntity.cs" />
@@ -137,35 +101,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705170441572_initial.resx">
-      <DependentUpon>201705170441572_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705170810056_added table for allowance and job history detail.resx">
-      <DependentUpon>201705170810056_added table for allowance and job history detail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705170921192_updated database.resx">
-      <DependentUpon>201705170921192_updated database.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705171109103_updated database with corrented fields.resx">
-      <DependentUpon>201705171109103_updated database with corrented fields.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705171119091_updated database with corrected nullable types.resx">
-      <DependentUpon>201705171119091_updated database with corrected nullable types.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705180948146_new tables added.resx">
-      <DependentUpon>201705180948146_new tables added.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705190541576_added Foreign Keys.resx">
-      <DependentUpon>201705190541576_added Foreign Keys.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705220827143_Foreign keys added in tables.resx">
-      <DependentUpon>201705220827143_Foreign keys added in tables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705220903317_unique keys added in tables 2.resx">
-      <DependentUpon>201705220903317_unique keys added in tables 2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705220906355_New changes regarding keys2.resx">
-      <DependentUpon>201705220906355_New changes regarding keys2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705241326002_initial.resx">
+      <DependentUpon>201705241326002_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

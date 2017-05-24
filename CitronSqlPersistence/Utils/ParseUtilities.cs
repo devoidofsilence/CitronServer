@@ -21,5 +21,17 @@ namespace CitronWeb.Utils
         {
             return string.IsNullOrEmpty(str) ? (DateTime?)null : Convert.ToDateTime(str);
         }
+
+        public static string DateToString(this DateTime? date)
+        {
+            try
+            {
+                return date != null ? Convert.ToDateTime(date).ToString("yyyy/MM/dd") : null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

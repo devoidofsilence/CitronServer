@@ -63,9 +63,39 @@ namespace CitronWeb
                    .As<IEmployeeJobDepartmentDetailPersistenceManager>();
             builder.RegisterInstance(new LeavePersistenceManager())
                    .As<ILeavePersistenceManager>();
+            builder.RegisterInstance(new AllowancePersistenceManager())
+                   .As<IAllowancePersistenceManager>();
+            builder.RegisterInstance(new BloodGroupPersistenceManager())
+                   .As<IBloodGroupPersistenceManager>();
+            builder.RegisterInstance(new PersonalityTypePersistenceManager())
+                   .As<IPersonalityTypePersistenceManager>();
+            builder.RegisterInstance(new JobDesignationPersistenceManager())
+                   .As<IJobDesignationPersistenceManager>();
+            builder.RegisterInstance(new JobDepartmentPersistenceManager())
+                   .As<IJobDepartmentPersistenceManager>();
+            builder.RegisterInstance(new MaritalStatusPersistenceManager())
+                   .As<IMaritalStatusPersistenceManager>();
             builder.RegisterType<EmployeeManager>()
                    .As<IEmployeeManager>()
                    .UsingConstructor(typeof(IEmployeePersistenceManager), typeof(IEmployeeJobDetailPersistenceManager), typeof(IEmployeeAccountDetailPersistenceManager), typeof(IEmployeeSalaryHistoryPersistenceManager), typeof(IEmployeeJobHistoryPersistenceManager), typeof(IEmployeeAllowanceDetailPersistenceManager), typeof(IEmployeeJobDepartmentDetailPersistenceManager), typeof(ILeavePersistenceManager));
+            builder.RegisterType<AllowanceManager>()
+                   .As<IAllowanceManager>()
+                   .UsingConstructor(typeof(IAllowancePersistenceManager));
+            builder.RegisterType<BloodGroupManager>()
+                   .As<IBloodGroupManager>()
+                   .UsingConstructor(typeof(IBloodGroupPersistenceManager));
+            builder.RegisterType<JobDepartmentManager>()
+                   .As<IJobDepartmentManager>()
+                   .UsingConstructor(typeof(IJobDepartmentPersistenceManager));
+            builder.RegisterType<JobDesignationManager>()
+                   .As<IJobDesignationManager>()
+                   .UsingConstructor(typeof(IJobDesignationPersistenceManager));
+            builder.RegisterType<PersonalityTypeManager>()
+                   .As<IPersonalityTypeManager>()
+                   .UsingConstructor(typeof(IPersonalityTypePersistenceManager));
+            builder.RegisterType<MaritalStatusManager>()
+                   .As<IMaritalStatusManager>()
+                   .UsingConstructor(typeof(IMaritalStatusPersistenceManager));
 
 
 

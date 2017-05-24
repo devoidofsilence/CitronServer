@@ -8,8 +8,10 @@ using CitronAppCore.DomainEntities;
 
 namespace CitronSqlPersistence
 {
+
     public class JobDepartmentPersistenceManager : IJobDepartmentPersistenceManager
     {
+        SqlDbContext db = new SqlDbContext();
         public Department Create(Department domainEntity)
         {
             throw new NotImplementedException();
@@ -27,7 +29,17 @@ namespace CitronSqlPersistence
 
         public IList<Department> FindAll(Func<Department, bool> condition)
         {
-            throw new NotImplementedException();
+            IList<Department> jobDepartments = new List<Department>();
+            var jobDepartmentEntities = db.jobDepartmentPersistenceEntities;//.Where(condition);
+            foreach (var jobDepartment in jobDepartmentEntities)
+            {
+                jobDepartments.Add(new Department()
+                {
+                    DepartmentCode = jobDepartment.Code,
+                    DepartmentName = jobDepartment.Description
+                });
+            }
+            return jobDepartments;
         }
 
         public Department Read(string identifier)

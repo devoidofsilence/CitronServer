@@ -129,14 +129,11 @@ namespace CitronInfrastructure
             return employee;
         }
 
-        public IList<Employee> GetAllEmployees()
+        public IList<Employee> GetEmployees(Func<Employee, bool> condition)
         {
-            throw new NotImplementedException();
-        }
-
-        public Employee GetEmployee(string employeeTagNo)
-        {
-            throw new NotImplementedException();
+            IList<Employee> employeesList = new List<Employee>();
+            employeesList = _employeePersistenceManager.FindAll(condition);
+            return employeesList;
         }
 
         public bool IsEmployeeAbsent(Employee employee)
@@ -162,11 +159,6 @@ namespace CitronInfrastructure
                 _leavePersistenceManager.Create(null);
             }
             return employee;
-        }
-
-        public IList<Employee> GetAllEmployeeFromGivenDepartment(string departmentCode)
-        {
-            throw new NotImplementedException();
         }
     }
 }

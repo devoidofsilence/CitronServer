@@ -40,9 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllowanceManager.cs" />
+    <Compile Include="BloodGroupManager.cs" />
     <Compile Include="EmployeeManager.cs" />
     <Compile Include="Exceptions\EmployeeAlreadyExistsException.cs" />
     <Compile Include="Exceptions\EmployeeNotFoundException.cs" />
+    <Compile Include="MaritalStatusManager.cs" />
+    <Compile Include="PersonalityTypeManager.cs" />
+    <Compile Include="JobDepartmentManager.cs" />
+    <Compile Include="JobDesignationManager.cs" />
     <Compile Include="PersistenceManagers\IAllowancePersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IBloodGroupPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IJobDepartmentPersistenceManager.cs" />

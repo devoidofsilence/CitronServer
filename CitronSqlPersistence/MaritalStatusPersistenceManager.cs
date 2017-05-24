@@ -10,6 +10,7 @@ namespace CitronSqlPersistence
 {
     public class MaritalStatusPersistenceManager : IMaritalStatusPersistenceManager
     {
+        SqlDbContext db = new SqlDbContext();
         public MaritalStatus Create(MaritalStatus domainEntity)
         {
             throw new NotImplementedException();
@@ -27,7 +28,17 @@ namespace CitronSqlPersistence
 
         public IList<MaritalStatus> FindAll(Func<MaritalStatus, bool> condition)
         {
-            throw new NotImplementedException();
+            IList<MaritalStatus> maritalStatuses = new List<MaritalStatus>();
+            var maritalStatusEntities = db.maritalStatusPersistenceEntities;//.Where(condition);
+            foreach (var maritalStatus in maritalStatusEntities)
+            {
+                maritalStatuses.Add(new MaritalStatus()
+                {
+                    MaritalStatusCode = maritalStatus.Code,
+                    MaritalStatusName = maritalStatus.Description
+                });
+            }
+            return maritalStatuses;
         }
 
         public MaritalStatus Read(string identifier)

@@ -10,6 +10,7 @@ namespace CitronSqlPersistence
 {
     public class AllowancePersistenceManager : IAllowancePersistenceManager
     {
+        SqlDbContext db = new SqlDbContext();
         public Allowance Create(Allowance domainEntity)
         {
             throw new NotImplementedException();
@@ -27,7 +28,17 @@ namespace CitronSqlPersistence
 
         public IList<Allowance> FindAll(Func<Allowance, bool> condition)
         {
-            throw new NotImplementedException();
+            IList<Allowance> allowances = new List<Allowance>();
+            var allowanceEntities = db.allowancePersistenceEntities;//.Where(condition);
+            foreach (var allowance in allowanceEntities)
+            {
+                allowances.Add(new Allowance()
+                {
+                    AllowanceCode = allowance.Code,
+                    AllowanceName = allowance.Description
+                });
+            }
+            return allowances;
         }
 
         public Allowance Read(string identifier)
