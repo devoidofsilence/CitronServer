@@ -85,17 +85,10 @@ namespace CitronWeb.Controllers
         }
 
         // GET api/<controller>/5
-        public object GetEmployees(Func<Employee, bool> condition)
+        public object GetEmployees()
         {
-            try
-            {
-                return _employeeManager.GetEmployees(condition);
-            }
-            catch (Exception ex)
-            {
-                return new ErrorResult() { Reason = ex.Message };
-            }
-            return new SuccessResult() { Message = "Employee updated" };
+            return _employeeManager.GetEmployees(null);
+
         }
 
         // POST api/<controller>

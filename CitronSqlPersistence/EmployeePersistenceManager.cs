@@ -4,6 +4,8 @@ using CitronAppCore.DomainEntities;
 using CitronInfrastructure.PersistenceManagers;
 using CitronSqlPersistence.PersistenceEntities;
 using System.Linq;
+using System.Data;
+using System.Data.Entity;
 using CitronWeb.Utils;
 using System.Text;
 
@@ -16,7 +18,7 @@ namespace CitronSqlPersistence
         public int? maritalStatusID = null;
         public int? personalityTypeID = null;
         public int? bloodGroupID = null;
-         
+
         public string byteString = null;
         public string maritalStatusCode = null;
         public string personalityTypeCode = null;
@@ -235,67 +237,48 @@ namespace CitronSqlPersistence
         {
             var dh = new TempDataHolder();
             IList<Employee> employeesList = new List<Employee>();
-            var employeePersistenceEntities = db.EmployeePersistenceEntities;
-            var maritalStatusPersistenceEntities = db.maritalStatusPersistenceEntities;
-            var personalityTypePersistenceEntities = db.personalityTypePersistenceEntities;
-            var bloodGroupPersistenceEntities = db.bloodGroupPersistenceEntities;
-            foreach (var employeePersistenceEntity in employeePersistenceEntities)
+
+            var aggregatedTable = (from empTable in db.EmployeePersistenceEntities
+                             join maritalTable in db.maritalStatusPersistenceEntities on empTable.MaritalStatus equals maritalTable.ID into emJoin
+                             from em in emJoin.DefaultIfEmpty()
+                             join ptTable in db.personalityTypePersistenceEntities on empTable.PersonalityType equals ptTable.ID into pemJoin
+                             from pem in pemJoin.DefaultIfEmpty()
+                             join bgTable in db.bloodGroupPersistenceEntities on empTable.PersonalityType equals bgTable.ID into bpemJoin
+                             from bpem in bpemJoin.DefaultIfEmpty()
+                             select new { Employee = empTable, MaritalStatus = em, PersonalityType = pem, BloodGroup = bpem });
+
+            var tt = aggregatedTable.ToList();
+            
+            foreach (var employeePersistenceEntity in aggregatedTable)
             {
-                if (employeePersistenceEntity.MaritalStatus != null)
+                if (employeePersistenceEntity.Employee.Photo != null)
                 {
-                    var maritalStatusPersistenceEntity = maritalStatusPersistenceEntities.FirstOrDefault(e => e.ID == employeePersistenceEntity.MaritalStatus);
-                    if (maritalStatusPersistenceEntity != null)
-                    {
-                        dh.maritalStatusCode = maritalStatusPersistenceEntity.Code;
-                    }
-                }
-
-                if (employeePersistenceEntity.PersonalityType != null)
-                {
-                    var personalityTypePersistenceEntity = personalityTypePersistenceEntities.FirstOrDefault(e => e.ID == employeePersistenceEntity.PersonalityType);
-                    if (personalityTypePersistenceEntity != null)
-                    {
-                        dh.personalityTypeCode = personalityTypePersistenceEntity.Code;
-                    }
-                }
-
-                if (employeePersistenceEntity.BloodGroup != null)
-                {
-                    var bloodGroupPersistenceEntity = bloodGroupPersistenceEntities.FirstOrDefault(e => e.ID == employeePersistenceEntity.BloodGroup);
-                    if (bloodGroupPersistenceEntity != null)
-                    {
-                        dh.bloodGroupCode = bloodGroupPersistenceEntity.Code;
-                    }
-                }
-
-                if (employeePersistenceEntity.Photo != null)
-                {
-                    dh.byteString = Encoding.ASCII.GetString(employeePersistenceEntity.Photo);
+                    dh.byteString = Encoding.ASCII.GetString(employeePersistenceEntity.Employee.Photo);
                 }
                 employeesList.Add(new Employee()
                 {
-                    Code = employeePersistenceEntity.Code,
-                    Name = employeePersistenceEntity.Name,
+                    Code = employeePersistenceEntity.Employee.Code,
+                    Name = employeePersistenceEntity.Employee.Name,
                     Photo = dh.byteString,
-                    Birthday = employeePersistenceEntity.Birthday.DateToString(),
-                    MaritalStatus = dh.maritalStatusCode,
-                    PersonalityType = dh.personalityTypeCode,
-                    BloodGroup = dh.bloodGroupCode,
-                    CitizenshipNo = employeePersistenceEntity.CitizenshipNo.NullIfEmptyString(),
-                    EmailId = employeePersistenceEntity.EmailId.NullIfEmptyString(),
-                    LocalAddress = employeePersistenceEntity.LocalAddress.NullIfEmptyString(),
-                    LocalAddressContactNo = employeePersistenceEntity.LocalAddressContactNo.NullIfEmptyString(),
-                    LocalAddressMobileNo = employeePersistenceEntity.LocalAddressMobileNo.NullIfEmptyString(),
-                    PermanentAddress = employeePersistenceEntity.PermanentAddress.NullIfEmptyString(),
-                    PermanentAddressContactNo = employeePersistenceEntity.PermanentAddressContactNo.NullIfEmptyString(),
-                    PermanentAddressMobileNo = employeePersistenceEntity.PermanentAddressMobileNo.NullIfEmptyString(),
-                    EmergencyAddress = employeePersistenceEntity.EmergencyAddress.NullIfEmptyString(),
-                    EmergencyAddressContactNo = employeePersistenceEntity.EmergencyAddressContactNo.NullIfEmptyString(),
-                    EmergencyAddressMobileNo = employeePersistenceEntity.EmergencyAddressMobileNo.NullIfEmptyString(),
-                    GooglePlusLink = employeePersistenceEntity.GooglePlusLink.NullIfEmptyString(),
-                    FacebookLink = employeePersistenceEntity.FacebookLink.NullIfEmptyString(),
-                    TwitterLink = employeePersistenceEntity.TwitterLink.NullIfEmptyString(),
-                    LinkedInLink = employeePersistenceEntity.LinkedInLink.NullIfEmptyString()
+                    Birthday = employeePersistenceEntity.Employee.Birthday.DateToString(),
+                    MaritalStatus = employeePersistenceEntity.MaritalStatus == null ? null : employeePersistenceEntity.MaritalStatus.Code,
+                    PersonalityType = employeePersistenceEntity.PersonalityType == null ? null : employeePersistenceEntity.PersonalityType.Code,
+                    BloodGroup = employeePersistenceEntity.BloodGroup == null ? null : employeePersistenceEntity.BloodGroup.Code,
+                    CitizenshipNo = employeePersistenceEntity.Employee.CitizenshipNo.NullIfEmptyString(),
+                    EmailId = employeePersistenceEntity.Employee.EmailId.NullIfEmptyString(),
+                    LocalAddress = employeePersistenceEntity.Employee.LocalAddress.NullIfEmptyString(),
+                    LocalAddressContactNo = employeePersistenceEntity.Employee.LocalAddressContactNo.NullIfEmptyString(),
+                    LocalAddressMobileNo = employeePersistenceEntity.Employee.LocalAddressMobileNo.NullIfEmptyString(),
+                    PermanentAddress = employeePersistenceEntity.Employee.PermanentAddress.NullIfEmptyString(),
+                    PermanentAddressContactNo = employeePersistenceEntity.Employee.PermanentAddressContactNo.NullIfEmptyString(),
+                    PermanentAddressMobileNo = employeePersistenceEntity.Employee.PermanentAddressMobileNo.NullIfEmptyString(),
+                    EmergencyAddress = employeePersistenceEntity.Employee.EmergencyAddress.NullIfEmptyString(),
+                    EmergencyAddressContactNo = employeePersistenceEntity.Employee.EmergencyAddressContactNo.NullIfEmptyString(),
+                    EmergencyAddressMobileNo = employeePersistenceEntity.Employee.EmergencyAddressMobileNo.NullIfEmptyString(),
+                    GooglePlusLink = employeePersistenceEntity.Employee.GooglePlusLink.NullIfEmptyString(),
+                    FacebookLink = employeePersistenceEntity.Employee.FacebookLink.NullIfEmptyString(),
+                    TwitterLink = employeePersistenceEntity.Employee.TwitterLink.NullIfEmptyString(),
+                    LinkedInLink = employeePersistenceEntity.Employee.LinkedInLink.NullIfEmptyString()
                 });
             }
             return employeesList;

@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,9 +69,13 @@
     <Compile Include="JobDesignationPersistenceManager.cs" />
     <Compile Include="LeavePersistenceManager.cs" />
     <Compile Include="MaritalStatusPersistenceManager.cs" />
-    <Compile Include="Migrations\201705241326002_initial.cs" />
-    <Compile Include="Migrations\201705241326002_initial.Designer.cs">
-      <DependentUpon>201705241326002_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201705241933068_initial.cs" />
+    <Compile Include="Migrations\201705241933068_initial.Designer.cs">
+      <DependentUpon>201705241933068_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705250543513_changes.cs" />
+    <Compile Include="Migrations\201705250543513_changes.Designer.cs">
+      <DependentUpon>201705250543513_changes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PersistenceEntities\EmployeeAccountDetailPersistenceEntity.cs" />
@@ -101,8 +106,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705241326002_initial.resx">
-      <DependentUpon>201705241326002_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705241933068_initial.resx">
+      <DependentUpon>201705241933068_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705250543513_changes.resx">
+      <DependentUpon>201705250543513_changes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
