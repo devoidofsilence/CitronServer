@@ -14,9 +14,13 @@ namespace CitronAppCore.DomainEntities
         public string Name { get; set; }
         public string Photo { get; set; }
         public string Birthday { get; set; }
-        public string MaritalStatus { get; set; }
-        public string PersonalityType { get; set; }
-        public string BloodGroup { get; set; }
+        public string MaritalStatusCode { get; set; }
+        public string PersonalityTypeCode { get; set; }
+        public string BloodGroupCode { get; set; }
+        public string MaritalStatusName { get; set; }
+        public string PersonalityTypeName { get; set; }
+        public string BloodGroupName { get; set; }
+        public string DesignationName { get; set; }
         public string CitizenshipNo { get; set; }
         public string EmailId { get; set; }
         
@@ -36,8 +40,8 @@ namespace CitronAppCore.DomainEntities
         public int JobDesignation { get; set; }
         public string JobDescription { get; set; }
         public string OfficeJoinDate { get; set; }
-        public int ExperienceYearsOnOfficeJoin { get; set; }
-        public int ExperienceMonthsOnOfficeJoin { get; set; }
+        public int? ExperienceYearsOnOfficeJoin { get; set; }
+        public int? ExperienceMonthsOnOfficeJoin { get; set; }
         public string PerformanceInThreeMonths { get; set; }
         public bool IsAbsent { get; set; }
 

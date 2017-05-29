@@ -21,5 +21,6 @@ namespace CitronAppCore.DomainManagers
         bool IsEmployeeAbsent(Employee employee);
         bool IsEmployeeOnLeave(Employee employee, DateTime onWhichDay);
         IList<Employee> GetEmployees(Func<Employee, bool> condition);
+        Employee GetEmployee(string code);
     }
 }

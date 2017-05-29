@@ -29,7 +29,7 @@ namespace CitronSqlPersistence
         public IList<PersonalityType> FindAll(Func<PersonalityType, bool> condition)
         {
             IList<PersonalityType> personalityTypes = new List<PersonalityType>();
-            var personalityTypeEntities = db.personalityTypePersistenceEntities;//.Where(condition);
+            var personalityTypeEntities = db.PersonalityTypePersistenceEntities;//.Where(condition);
             foreach (var personalityType in personalityTypeEntities)
             {
                 personalityTypes.Add(new PersonalityType() {

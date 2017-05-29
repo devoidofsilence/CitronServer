@@ -34,7 +34,7 @@ namespace CitronSqlPersistence
         public IList<Designation> FindAll(Func<Designation, bool> condition)
         {
             IList<Designation> jobDesignations = new List<Designation>();
-            var jobDesignationEntities = db.jobDesignationPersistenceEntities;//.Where(condition);
+            var jobDesignationEntities = db.JobDesignationPersistenceEntities;//.Where(condition);
             foreach (var jobDesignation in jobDesignationEntities)
             {
                 jobDesignations.Add(new Designation()

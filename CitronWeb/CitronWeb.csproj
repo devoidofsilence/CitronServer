@@ -236,6 +236,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Client\App.vue" />
+    <None Include="Build Artifacts\build.batx" />
     <None Include="Properties\PublishProfiles\citronremote.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -250,6 +251,13 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="static\css\app.bfc8bd0c21eeba5a3a6e1683fc339dcd.css" />
+    <Content Include="static\js\app.2fab5927eece80675e7e.js" />
+    <Content Include="static\js\jquery-ui.js" />
+    <Content Include="static\js\jquery.simpler-sidebar.min.js" />
+    <Content Include="static\js\main-sidebar-right-top.js" />
+    <Content Include="static\js\manifest.785627f3913ddd47710c.js" />
+    <Content Include="static\js\vendor.dd7d8ce85892b2c3bccb.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -286,6 +294,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="static\css\app.bfc8bd0c21eeba5a3a6e1683fc339dcd.css.map" />
+    <Content Include="static\js\app.2fab5927eece80675e7e.js.map" />
+    <Content Include="static\js\manifest.785627f3913ddd47710c.js.map" />
+    <Content Include="static\js\vendor.dd7d8ce85892b2c3bccb.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -352,6 +364,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

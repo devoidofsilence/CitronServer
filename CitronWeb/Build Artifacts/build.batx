@@ -1,0 +1,4 @@
+rmdir C:\p\ProjectCitron\CitronWeb\CitronWeb\static /s /q
+del C:\p\ProjectCitron\CitronWeb\CitronWeb\Views\Home\Index.cshtml
+cd "C:\p\ProjectCitron\CitronClient\citron"
+webpack --config build/webpack.prod.conf.js --output-path "C:\p\ProjectCitron\CitronWeb\CitronWeb"

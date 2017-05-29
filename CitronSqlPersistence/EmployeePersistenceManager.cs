@@ -23,6 +23,12 @@ namespace CitronSqlPersistence
         public string maritalStatusCode = null;
         public string personalityTypeCode = null;
         public string bloodGroupCode = null;
+
+        public int? parentTaskID = null;
+        public int? responsibleEmployeeID = null;
+
+        public string parentTaskCode = null;
+        public string responsibleEmployeeCode = null;
     }
 
     public class EmployeePersistenceManager : IEmployeePersistenceManager
@@ -32,27 +38,27 @@ namespace CitronSqlPersistence
         {
             var dh = new TempDataHolder();
 
-            if (!string.IsNullOrEmpty(employee.MaritalStatus))
+            if (!string.IsNullOrEmpty(employee.MaritalStatusCode))
             {
-                var maritalStatusPersistenceEntity = db.maritalStatusPersistenceEntities.FirstOrDefault(e => e.Code == employee.MaritalStatus);
+                var maritalStatusPersistenceEntity = db.MaritalStatusPersistenceEntities.FirstOrDefault(e => e.Code == employee.MaritalStatusCode);
                 if (maritalStatusPersistenceEntity != null)
                 {
                     dh.maritalStatusID = maritalStatusPersistenceEntity.ID;
                 }
             }
 
-            if (!string.IsNullOrEmpty(employee.PersonalityType))
+            if (!string.IsNullOrEmpty(employee.PersonalityTypeCode))
             {
-                var personalityTypePersistenceEntity = db.personalityTypePersistenceEntities.FirstOrDefault(e => e.Code == employee.PersonalityType);
+                var personalityTypePersistenceEntity = db.PersonalityTypePersistenceEntities.FirstOrDefault(e => e.Code == employee.PersonalityTypeCode);
                 if (personalityTypePersistenceEntity != null)
                 {
                     dh.personalityTypeID = personalityTypePersistenceEntity.ID;
                 }
             }
 
-            if (!string.IsNullOrEmpty(employee.BloodGroup))
+            if (!string.IsNullOrEmpty(employee.BloodGroupCode))
             {
-                var bloodGroupPersistenceEntity = db.bloodGroupPersistenceEntities.FirstOrDefault(e => e.Code == employee.BloodGroup);
+                var bloodGroupPersistenceEntity = db.BloodGroupPersistenceEntities.FirstOrDefault(e => e.Code == employee.BloodGroupCode);
                 if (bloodGroupPersistenceEntity != null)
                 {
                     dh.bloodGroupID = bloodGroupPersistenceEntity.ID;
@@ -98,27 +104,27 @@ namespace CitronSqlPersistence
         public Employee Update(Employee employee)
         {
             var dh = new TempDataHolder();
-            if (!string.IsNullOrEmpty(employee.MaritalStatus))
+            if (!string.IsNullOrEmpty(employee.MaritalStatusCode))
             {
-                var maritalStatusPersistenceEntity = db.maritalStatusPersistenceEntities.FirstOrDefault(e => e.Code == employee.MaritalStatus);
+                var maritalStatusPersistenceEntity = db.MaritalStatusPersistenceEntities.FirstOrDefault(e => e.Code == employee.MaritalStatusCode);
                 if (maritalStatusPersistenceEntity != null)
                 {
                     dh.maritalStatusID = maritalStatusPersistenceEntity.ID;
                 }
             }
 
-            if (!string.IsNullOrEmpty(employee.PersonalityType))
+            if (!string.IsNullOrEmpty(employee.PersonalityTypeCode))
             {
-                var personalityTypePersistenceEntity = db.personalityTypePersistenceEntities.FirstOrDefault(e => e.Code == employee.PersonalityType);
+                var personalityTypePersistenceEntity = db.PersonalityTypePersistenceEntities.FirstOrDefault(e => e.Code == employee.PersonalityTypeCode);
                 if (personalityTypePersistenceEntity != null)
                 {
                     dh.personalityTypeID = personalityTypePersistenceEntity.ID;
                 }
             }
 
-            if (!string.IsNullOrEmpty(employee.BloodGroup))
+            if (!string.IsNullOrEmpty(employee.BloodGroupCode))
             {
-                var bloodGroupPersistenceEntity = db.bloodGroupPersistenceEntities.FirstOrDefault(e => e.Code == employee.BloodGroup);
+                var bloodGroupPersistenceEntity = db.BloodGroupPersistenceEntities.FirstOrDefault(e => e.Code == employee.BloodGroupCode);
                 if (bloodGroupPersistenceEntity != null)
                 {
                     dh.bloodGroupID = bloodGroupPersistenceEntity.ID;
@@ -170,65 +176,78 @@ namespace CitronSqlPersistence
         public Employee Find(string code)
         {
             var dh = new TempDataHolder();
-            var employeePersistenceEntity = db.EmployeePersistenceEntities.FirstOrDefault(e => e.Code == code);
+            var employeePersistenceEntity = db.EmployeePersistenceEntities.Where(e => e.Code == code);
+
+            var aggregatedTable = (from empTable in employeePersistenceEntity
+                                   join maritalTable in db.MaritalStatusPersistenceEntities on empTable.MaritalStatus equals maritalTable.ID into emJoin
+                                   from em in emJoin.DefaultIfEmpty()
+                                   join ptTable in db.PersonalityTypePersistenceEntities on empTable.PersonalityType equals ptTable.ID into pemJoin
+                                   from pem in pemJoin.DefaultIfEmpty()
+                                   join bgTable in db.BloodGroupPersistenceEntities on empTable.PersonalityType equals bgTable.ID into bpemJoin
+                                   from bpem in bpemJoin.DefaultIfEmpty()
+                                   join ejdTable in db.EmployeeJobDetailPersistenceEntities on empTable.ID equals ejdTable.EmployeeID into ejdemJoin
+                                   from ejdem in ejdemJoin.DefaultIfEmpty()
+                                   select new { Employee = empTable, MaritalStatus = em, PersonalityType = pem, BloodGroup = bpem, EmployeeJobDetail = ejdem });
+
+            var tt = aggregatedTable.ToList();
 
             Employee employee = new Employee();
-            if (employeePersistenceEntity != null)
+            if (aggregatedTable != null)
             {
-                if (employeePersistenceEntity.MaritalStatus != null)
-                {
-                    var maritalStatusPersistenceEntity = db.maritalStatusPersistenceEntities.FirstOrDefault(e => e.ID == employeePersistenceEntity.MaritalStatus);
-                    if (maritalStatusPersistenceEntity != null)
-                    {
-                        dh.maritalStatusCode = maritalStatusPersistenceEntity.Code;
-                    }
-                }
+                //if (aggregatedTable.Employee.MaritalStatus != null)
+                //{
+                //    var maritalStatusPersistenceEntity = db.MaritalStatusPersistenceEntities.FirstOrDefault(e => e.ID == employeePersistenceEntity.Employee.MaritalStatus);
+                //    if (maritalStatusPersistenceEntity != null)
+                //    {
+                //        dh.maritalStatusCode = maritalStatusPersistenceEntity.Code;
+                //    }
+                //}
 
-                if (employeePersistenceEntity.PersonalityType != null)
-                {
-                    var personalityTypePersistenceEntity = db.personalityTypePersistenceEntities.FirstOrDefault(e => e.ID == employeePersistenceEntity.PersonalityType);
-                    if (personalityTypePersistenceEntity != null)
-                    {
-                        dh.personalityTypeCode = personalityTypePersistenceEntity.Code;
-                    }
-                }
+                //if (employeePersistenceEntity.PersonalityType != null)
+                //{
+                //    var personalityTypePersistenceEntity = db.PersonalityTypePersistenceEntities.FirstOrDefault(e => e.ID == employeePersistenceEntity.PersonalityType);
+                //    if (personalityTypePersistenceEntity != null)
+                //    {
+                //        dh.personalityTypeCode = personalityTypePersistenceEntity.Code;
+                //    }
+                //}
 
-                if (employeePersistenceEntity.BloodGroup != null)
-                {
-                    var bloodGroupPersistenceEntity = db.bloodGroupPersistenceEntities.FirstOrDefault(e => e.ID == employeePersistenceEntity.BloodGroup);
-                    if (bloodGroupPersistenceEntity != null)
-                    {
-                        dh.bloodGroupCode = bloodGroupPersistenceEntity.Code;
-                    }
-                }
+                //if (employeePersistenceEntity.BloodGroup != null)
+                //{
+                //    var bloodGroupPersistenceEntity = db.BloodGroupPersistenceEntities.FirstOrDefault(e => e.ID == employeePersistenceEntity.BloodGroup);
+                //    if (bloodGroupPersistenceEntity != null)
+                //    {
+                //        dh.bloodGroupCode = bloodGroupPersistenceEntity.Code;
+                //    }
+                //}
 
-                if (employeePersistenceEntity.Photo != null)
-                {
-                    dh.byteString = Encoding.ASCII.GetString(employeePersistenceEntity.Photo);
-                }
+                //if (employeePersistenceEntity.Photo != null)
+                //{
+                //    dh.byteString = Encoding.ASCII.GetString(employeePersistenceEntity.Photo);
+                //}
 
-                employee.Code = employeePersistenceEntity.Code;
-                employee.Name = employeePersistenceEntity.Name;
-                employee.Photo = dh.byteString;
-                employee.Birthday = employeePersistenceEntity.Birthday.DateToString();
-                employee.MaritalStatus = dh.maritalStatusCode;
-                employee.PersonalityType = dh.personalityTypeCode;
-                employee.BloodGroup = dh.bloodGroupCode;
-                employee.CitizenshipNo = employeePersistenceEntity.CitizenshipNo.NullIfEmptyString();
-                employee.EmailId = employeePersistenceEntity.EmailId.NullIfEmptyString();
-                employee.LocalAddress = employeePersistenceEntity.LocalAddress.NullIfEmptyString();
-                employee.LocalAddressContactNo = employeePersistenceEntity.LocalAddressContactNo.NullIfEmptyString();
-                employee.LocalAddressMobileNo = employeePersistenceEntity.LocalAddressMobileNo.NullIfEmptyString();
-                employee.PermanentAddress = employeePersistenceEntity.PermanentAddress.NullIfEmptyString();
-                employee.PermanentAddressContactNo = employeePersistenceEntity.PermanentAddressContactNo.NullIfEmptyString();
-                employee.PermanentAddressMobileNo = employeePersistenceEntity.PermanentAddressMobileNo.NullIfEmptyString();
-                employee.EmergencyAddress = employeePersistenceEntity.EmergencyAddress.NullIfEmptyString();
-                employee.EmergencyAddressContactNo = employeePersistenceEntity.EmergencyAddressContactNo.NullIfEmptyString();
-                employee.EmergencyAddressMobileNo = employeePersistenceEntity.EmergencyAddressMobileNo.NullIfEmptyString();
-                employee.GooglePlusLink = employeePersistenceEntity.GooglePlusLink.NullIfEmptyString();
-                employee.FacebookLink = employeePersistenceEntity.FacebookLink.NullIfEmptyString();
-                employee.TwitterLink = employeePersistenceEntity.TwitterLink.NullIfEmptyString();
-                employee.LinkedInLink = employeePersistenceEntity.LinkedInLink.NullIfEmptyString();
+                //employee.Code = employeePersistenceEntity.Code;
+                //employee.Name = employeePersistenceEntity.Name;
+                //employee.Photo = dh.byteString;
+                //employee.Birthday = employeePersistenceEntity.Birthday.DateToString();
+                //employee.MaritalStatusCode = dh.maritalStatusCode;
+                //employee.PersonalityTypeCode = dh.personalityTypeCode;
+                //employee.BloodGroupCode = dh.bloodGroupCode;
+                //employee.CitizenshipNo = employeePersistenceEntity.CitizenshipNo.NullIfEmptyString();
+                //employee.EmailId = employeePersistenceEntity.EmailId.NullIfEmptyString();
+                //employee.LocalAddress = employeePersistenceEntity.LocalAddress.NullIfEmptyString();
+                //employee.LocalAddressContactNo = employeePersistenceEntity.LocalAddressContactNo.NullIfEmptyString();
+                //employee.LocalAddressMobileNo = employeePersistenceEntity.LocalAddressMobileNo.NullIfEmptyString();
+                //employee.PermanentAddress = employeePersistenceEntity.PermanentAddress.NullIfEmptyString();
+                //employee.PermanentAddressContactNo = employeePersistenceEntity.PermanentAddressContactNo.NullIfEmptyString();
+                //employee.PermanentAddressMobileNo = employeePersistenceEntity.PermanentAddressMobileNo.NullIfEmptyString();
+                //employee.EmergencyAddress = employeePersistenceEntity.EmergencyAddress.NullIfEmptyString();
+                //employee.EmergencyAddressContactNo = employeePersistenceEntity.EmergencyAddressContactNo.NullIfEmptyString();
+                //employee.EmergencyAddressMobileNo = employeePersistenceEntity.EmergencyAddressMobileNo.NullIfEmptyString();
+                //employee.GooglePlusLink = employeePersistenceEntity.GooglePlusLink.NullIfEmptyString();
+                //employee.FacebookLink = employeePersistenceEntity.FacebookLink.NullIfEmptyString();
+                //employee.TwitterLink = employeePersistenceEntity.TwitterLink.NullIfEmptyString();
+                //employee.LinkedInLink = employeePersistenceEntity.LinkedInLink.NullIfEmptyString();
             }
             return employee;
         }
@@ -239,18 +258,21 @@ namespace CitronSqlPersistence
             IList<Employee> employeesList = new List<Employee>();
 
             var aggregatedTable = (from empTable in db.EmployeePersistenceEntities
-                             join maritalTable in db.maritalStatusPersistenceEntities on empTable.MaritalStatus equals maritalTable.ID into emJoin
-                             from em in emJoin.DefaultIfEmpty()
-                             join ptTable in db.personalityTypePersistenceEntities on empTable.PersonalityType equals ptTable.ID into pemJoin
-                             from pem in pemJoin.DefaultIfEmpty()
-                             join bgTable in db.bloodGroupPersistenceEntities on empTable.PersonalityType equals bgTable.ID into bpemJoin
-                             from bpem in bpemJoin.DefaultIfEmpty()
-                             select new { Employee = empTable, MaritalStatus = em, PersonalityType = pem, BloodGroup = bpem });
+                                   join maritalTable in db.MaritalStatusPersistenceEntities on empTable.MaritalStatus equals maritalTable.ID into emJoin
+                                   from em in emJoin.DefaultIfEmpty()
+                                   join ptTable in db.PersonalityTypePersistenceEntities on empTable.PersonalityType equals ptTable.ID into pemJoin
+                                   from pem in pemJoin.DefaultIfEmpty()
+                                   join bgTable in db.BloodGroupPersistenceEntities on empTable.PersonalityType equals bgTable.ID into bpemJoin
+                                   from bpem in bpemJoin.DefaultIfEmpty()
+                                   join ejdTable in db.EmployeeJobDetailPersistenceEntities on empTable.ID equals ejdTable.EmployeeID into ejdemJoin
+                                   from ejdem in ejdemJoin.DefaultIfEmpty()
+                                   select new { Employee = empTable, MaritalStatus = em, PersonalityType = pem, BloodGroup = bpem, EmployeeJobDetail = ejdem });
 
             var tt = aggregatedTable.ToList();
-            
+
             foreach (var employeePersistenceEntity in aggregatedTable)
             {
+                dh.byteString = null;
                 if (employeePersistenceEntity.Employee.Photo != null)
                 {
                     dh.byteString = Encoding.ASCII.GetString(employeePersistenceEntity.Employee.Photo);
@@ -261,9 +283,11 @@ namespace CitronSqlPersistence
                     Name = employeePersistenceEntity.Employee.Name,
                     Photo = dh.byteString,
                     Birthday = employeePersistenceEntity.Employee.Birthday.DateToString(),
-                    MaritalStatus = employeePersistenceEntity.MaritalStatus == null ? null : employeePersistenceEntity.MaritalStatus.Code,
-                    PersonalityType = employeePersistenceEntity.PersonalityType == null ? null : employeePersistenceEntity.PersonalityType.Code,
-                    BloodGroup = employeePersistenceEntity.BloodGroup == null ? null : employeePersistenceEntity.BloodGroup.Code,
+                    MaritalStatusCode = employeePersistenceEntity.MaritalStatus == null ? null : employeePersistenceEntity.MaritalStatus.Code,
+                    PersonalityTypeCode = employeePersistenceEntity.PersonalityType == null ? null : employeePersistenceEntity.PersonalityType.Code,
+                    BloodGroupCode = employeePersistenceEntity.BloodGroup == null ? null : employeePersistenceEntity.BloodGroup.Code,
+                    DesignationName = employeePersistenceEntity.EmployeeJobDetail == null ? null : employeePersistenceEntity.EmployeeJobDetail.Description,
+                    ExperienceYearsOnOfficeJoin = employeePersistenceEntity.EmployeeJobDetail == null ? null : employeePersistenceEntity.EmployeeJobDetail.ExperienceYearsOnOfficeJoin,
                     CitizenshipNo = employeePersistenceEntity.Employee.CitizenshipNo.NullIfEmptyString(),
                     EmailId = employeePersistenceEntity.Employee.EmailId.NullIfEmptyString(),
                     LocalAddress = employeePersistenceEntity.Employee.LocalAddress.NullIfEmptyString(),

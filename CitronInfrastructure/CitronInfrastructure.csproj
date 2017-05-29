@@ -46,6 +46,8 @@
     <Compile Include="Exceptions\EmployeeAlreadyExistsException.cs" />
     <Compile Include="Exceptions\EmployeeNotFoundException.cs" />
     <Compile Include="MaritalStatusManager.cs" />
+    <Compile Include="PersistenceManagers\IProjectPersistenceManager.cs" />
+    <Compile Include="PersistenceManagers\IProjectTaskPersistenceManager.cs" />
     <Compile Include="PersonalityTypeManager.cs" />
     <Compile Include="JobDepartmentManager.cs" />
     <Compile Include="JobDesignationManager.cs" />
@@ -64,6 +66,8 @@
     <Compile Include="PersistenceManagers\IMaritalStatusPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IPersonalityTypePersistenceManager.cs" />
+    <Compile Include="ProjectManager.cs" />
+    <Compile Include="ProjectTaskManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

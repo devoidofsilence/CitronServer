@@ -136,6 +136,13 @@ namespace CitronInfrastructure
             return employeesList;
         }
 
+        public Employee GetEmployee(string code)
+        {
+            Employee employee = new Employee();
+            employee = _employeePersistenceManager.Find(code);
+            return employee;
+        }
+
         public bool IsEmployeeAbsent(Employee employee)
         {
             throw new NotImplementedException();

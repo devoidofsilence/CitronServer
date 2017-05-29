@@ -29,7 +29,7 @@ namespace CitronSqlPersistence
         public IList<MaritalStatus> FindAll(Func<MaritalStatus, bool> condition)
         {
             IList<MaritalStatus> maritalStatuses = new List<MaritalStatus>();
-            var maritalStatusEntities = db.maritalStatusPersistenceEntities;//.Where(condition);
+            var maritalStatusEntities = db.MaritalStatusPersistenceEntities;//.Where(condition);
             foreach (var maritalStatus in maritalStatusEntities)
             {
                 maritalStatuses.Add(new MaritalStatus()

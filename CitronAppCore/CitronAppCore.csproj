@@ -49,6 +49,8 @@
     <Compile Include="DomainEntities\IDomainEntity.cs" />
     <Compile Include="DomainEntities\MaritalStatus.cs" />
     <Compile Include="DomainEntities\PersonalityType.cs" />
+    <Compile Include="DomainEntities\Project.cs" />
+    <Compile Include="DomainEntities\ProjectTask.cs" />
     <Compile Include="DomainManagers\IAllowanceManager.cs" />
     <Compile Include="DomainManagers\IBloodGroupManager.cs" />
     <Compile Include="DomainManagers\IEmployeeManager.cs" />
@@ -56,6 +58,8 @@
     <Compile Include="DomainManagers\IJobDesignationManager.cs" />
     <Compile Include="DomainManagers\IMaritalStatusManager.cs" />
     <Compile Include="DomainManagers\IPersonalityTypeManager.cs" />
+    <Compile Include="DomainManagers\IProjectManager.cs" />
+    <Compile Include="DomainManagers\IProjectTaskManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

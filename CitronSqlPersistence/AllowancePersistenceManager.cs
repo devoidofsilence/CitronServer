@@ -29,7 +29,7 @@ namespace CitronSqlPersistence
         public IList<Allowance> FindAll(Func<Allowance, bool> condition)
         {
             IList<Allowance> allowances = new List<Allowance>();
-            var allowanceEntities = db.allowancePersistenceEntities;//.Where(condition);
+            var allowanceEntities = db.AllowancePersistenceEntities;//.Where(condition);
             foreach (var allowance in allowanceEntities)
             {
                 allowances.Add(new Allowance()

@@ -29,7 +29,7 @@ namespace CitronSqlPersistence
         public IList<BloodGroup> FindAll(Func<BloodGroup, bool> condition)
         {
             IList<BloodGroup> bloodGroups = new List<BloodGroup>();
-            var bloodGroupEntities = db.bloodGroupPersistenceEntities;//.Where(condition);
+            var bloodGroupEntities = db.BloodGroupPersistenceEntities;//.Where(condition);
             foreach (var bloodGroup in bloodGroupEntities)
             {
                 bloodGroups.Add(new BloodGroup()
