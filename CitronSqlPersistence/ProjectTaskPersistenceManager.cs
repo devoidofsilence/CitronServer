@@ -1,4 +1,5 @@
 ﻿using CitronAppCore.DomainEntities;
+using CitronInfrastructure.PersistenceManagers;
 using CitronSqlPersistence.PersistenceEntities;
 using CitronWeb.Utils;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CitronSqlPersistence
 {
-    public class ProjectTaskPersistenceManager
+    public class ProjectTaskPersistenceManager : IProjectTaskPersistenceManager
     {
         SqlDbContext db = new SqlDbContext();
         public ProjectTask Create(ProjectTask projectTask)
@@ -36,7 +37,7 @@ namespace CitronSqlPersistence
             {
                 Code = projectTask.Code.NullIfEmptyString(),
                 Name = projectTask.Name.NullIfEmptyString(),
-                Description = projectTask.Name.NullIfEmptyString(),
+                Description = projectTask.Description.NullIfEmptyString(),
                 ParentProjectTaskID = dh.parentTaskID,
                 ResponsibleEmployeeID = dh.responsibleEmployeeID,
                 OptimisticTime = projectTask.OptimisticTime,
@@ -162,6 +163,11 @@ namespace CitronSqlPersistence
         }
 
         public Project Read(string identifier)
+        {
+            throw new NotImplementedException();
+        }
+
+        ProjectTask IPersistenceManager<ProjectTask>.Read(string identifier)
         {
             throw new NotImplementedException();
         }

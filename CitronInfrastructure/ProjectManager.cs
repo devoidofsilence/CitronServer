@@ -12,9 +12,11 @@ namespace CitronInfrastructure
     public class ProjectManager : IProjectManager
     {
         IProjectPersistenceManager _projectPersistenceManager;
-        public ProjectManager(IProjectPersistenceManager projectPersistenceManager)
+        IProjectAssignedEmployeesPersistenceManager _projectAssignedEmployeesPersistenceManager;
+        public ProjectManager(IProjectPersistenceManager projectPersistenceManager, IProjectAssignedEmployeesPersistenceManager projectAssignedEmployeesPersistenceManager)
         {
             _projectPersistenceManager = projectPersistenceManager;
+            _projectAssignedEmployeesPersistenceManager = projectAssignedEmployeesPersistenceManager;
         }
 
         public Project AddProject(Project project)
@@ -23,6 +25,7 @@ namespace CitronInfrastructure
             if (string.IsNullOrEmpty(foundProject.Code))
             {
                 _projectPersistenceManager.Create(project);
+                _projectAssignedEmployeesPersistenceManager.Create(project);
             }
             else
             {
@@ -33,13 +36,16 @@ namespace CitronInfrastructure
 
         public Project DeleteProject(Project project)
         {
+            _projectAssignedEmployeesPersistenceManager.Delete(project);
             _projectPersistenceManager.Delete(project);
             return project;
         }
 
         public IList<Project> GetProjects(Func<Project, bool> condition)
         {
-            throw new NotImplementedException();
+            IList<Project> projectsList = new List<Project>();
+            projectsList = _projectPersistenceManager.FindAll(condition);
+            return projectsList;
         }
 
         public Project UpdateProject(Project project)
@@ -48,11 +54,23 @@ namespace CitronInfrastructure
             if (!string.IsNullOrEmpty(foundProject.Code))
             {
                 _projectPersistenceManager.Update(project);
+                _projectAssignedEmployeesPersistenceManager.Create(project);
             }
             else
             {
                 throw new NotImplementedException();
             }
+            return project;
+        }
+
+        public Project GetProjectDetail(string projectCode)
+        {
+            Project project = new Project();
+            if (!string.IsNullOrEmpty(projectCode))
+            {
+                project = _projectPersistenceManager.Find(projectCode);
+            }
+
             return project;
         }
     }

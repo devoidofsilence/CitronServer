@@ -12,9 +12,11 @@ namespace CitronAppCore.DomainManagers
         Employee AddEmployeeJobDetail(Employee employee);
         Employee UpdateEmployeeJobDetail(Employee employee);
         Employee DeleteEmployeeJobDetail(Employee employee);
+        Employee GetEmployeeJobDetail(string code);
         Employee AddEmployeeAccountDetail(Employee employee);
         Employee UpdateEmployeeAccountDetail(Employee employee);
         Employee DeleteEmployeeAccountDetail(Employee employee);
+        Employee GetEmployeeAccountDetail(string code);
         Employee PromoteEmployee(Employee employee);
         Employee ReviewEmployeeSalary(Employee employee);
         Employee MarkAsAbsent(Employee employee, DateTime onWhichDay);

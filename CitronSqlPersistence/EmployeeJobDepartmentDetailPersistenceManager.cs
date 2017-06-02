@@ -15,14 +15,26 @@ namespace CitronSqlPersistence
 
         public Employee Create(Employee employee)
         {
+            var dh = new TempDataHolder();
             Delete(employee);
             var employeeSelected = db.EmployeePersistenceEntities.FirstOrDefault(e => e.Code == employee.Code);
-            foreach (var item in employee.JobDepartments)
+            if (employee.JobDepartments != null)
             {
-                var employeeJobDepartmentDetailPersistenceEntity = new EmployeeJobDepartmentDetailPersistenceEntity();
-                employeeJobDepartmentDetailPersistenceEntity.DepartmentID = item;
-                employeeJobDepartmentDetailPersistenceEntity.EmployeeID = employeeSelected.ID;
-                db.EmployeeJobDepartmentDetailPersistenceEntities.Add(employeeJobDepartmentDetailPersistenceEntity);
+                foreach (var item in employee.JobDepartments)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        var jobDepartmentPersistenceEntity = db.JobDepartmentPersistenceEntities.FirstOrDefault(e => e.Code == item);
+                        if (jobDepartmentPersistenceEntity != null)
+                        {
+                            dh.jobDepartmentID = jobDepartmentPersistenceEntity.ID;
+                        }
+                    }
+                    var employeeJobDepartmentDetailPersistenceEntity = new EmployeeJobDepartmentDetailPersistenceEntity();
+                    employeeJobDepartmentDetailPersistenceEntity.DepartmentID = dh.jobDepartmentID;
+                    employeeJobDepartmentDetailPersistenceEntity.EmployeeID = employeeSelected.ID;
+                    db.EmployeeJobDepartmentDetailPersistenceEntities.Add(employeeJobDepartmentDetailPersistenceEntity);
+                }
             }
 
             db.SaveChanges();

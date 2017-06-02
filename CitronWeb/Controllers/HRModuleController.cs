@@ -66,10 +66,38 @@ namespace CitronWeb.Controllers
             _employeeManager.UpdateEmployeeJobDetail(employee);
         }
 
+        [HttpGet]
+        [Route("api/HRModule/GetEmployeeJobDetail/{code}")]
+        public object GetEmployeeJobDetail(string code)
+        {
+            if (code != null)
+            {
+                return _employeeManager.GetEmployeeJobDetail(code);
+            }
+            return new ErrorResult() { Reason = "" };
+        }
+
+        [HttpGet]
+        [Route("api/HRModule/GetEmployeeAccountDetail/{code}")]
+        public object GetEmployeeAccountDetail(string code)
+        {
+            if (code != null)
+            {
+                return _employeeManager.GetEmployeeAccountDetail(code);
+            }
+            return new ErrorResult() { Reason = "" };
+        }
+
         [HttpPost]
         public void AddEmployeeAccountDetail([FromBody] Employee employee)
         {
             _employeeManager.AddEmployeeAccountDetail(employee);
+        }
+
+        [HttpPost]
+        public void UpdateEmployeeAccountDetail([FromBody] Employee employee)
+        {
+            _employeeManager.UpdateEmployeeAccountDetail(employee);
         }
 
         [HttpPost]

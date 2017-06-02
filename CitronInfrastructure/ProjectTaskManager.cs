@@ -39,7 +39,9 @@ namespace CitronInfrastructure
 
         public IList<ProjectTask> GetProjectTasks(Func<ProjectTask, bool> condition)
         {
-            throw new NotImplementedException();
+            IList<ProjectTask> projectTasksList = new List<ProjectTask>();
+            projectTasksList = _projectTaskPersistenceManager.FindAll(condition);
+            return projectTasksList;
         }
 
         public ProjectTask UpdateProjectTask(ProjectTask projectTask)

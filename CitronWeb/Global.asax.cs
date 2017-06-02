@@ -77,12 +77,16 @@ namespace CitronWeb
                    .As<IMaritalStatusPersistenceManager>();
             builder.RegisterInstance(new ProjectPersistenceManager())
                    .As<IProjectPersistenceManager>();
+            builder.RegisterInstance(new ProjectTaskPersistenceManager())
+                   .As<IProjectTaskPersistenceManager>();
+            builder.RegisterInstance(new ProjectAssignedEmployeesPersistenceManager())
+                   .As<IProjectAssignedEmployeesPersistenceManager>();
             builder.RegisterType<EmployeeManager>()
                    .As<IEmployeeManager>()
                    .UsingConstructor(typeof(IEmployeePersistenceManager), typeof(IEmployeeJobDetailPersistenceManager), typeof(IEmployeeAccountDetailPersistenceManager), typeof(IEmployeeSalaryHistoryPersistenceManager), typeof(IEmployeeJobHistoryPersistenceManager), typeof(IEmployeeAllowanceDetailPersistenceManager), typeof(IEmployeeJobDepartmentDetailPersistenceManager), typeof(ILeavePersistenceManager));
             builder.RegisterType<ProjectManager>()
                    .As<IProjectManager>()
-                   .UsingConstructor(typeof(IProjectPersistenceManager));
+                   .UsingConstructor(typeof(IProjectPersistenceManager), typeof(IProjectAssignedEmployeesPersistenceManager));
             builder.RegisterType<ProjectTaskManager>()
                    .As<IProjectTaskManager>()
                    .UsingConstructor(typeof(IProjectTaskPersistenceManager));

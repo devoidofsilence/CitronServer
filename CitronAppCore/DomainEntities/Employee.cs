@@ -36,8 +36,9 @@ namespace CitronAppCore.DomainEntities
         public string EmergencyAddressMobileNo { get; set; }
 
         //Job Specific
-        public IList<int> JobDepartments { get; set; }
-        public int JobDesignation { get; set; }
+        public bool JobDetailsExist { get; set; }
+        public IList<string> JobDepartments { get; set; }
+        public string JobDesignationCode { get; set; }
         public string JobDescription { get; set; }
         public string OfficeJoinDate { get; set; }
         public int? ExperienceYearsOnOfficeJoin { get; set; }
@@ -46,11 +47,12 @@ namespace CitronAppCore.DomainEntities
         public bool IsAbsent { get; set; }
 
         //Account Specific
+        public bool AccountDetailsExist { get; set; }
         public string BankName { get; set; }
         public string BankBranch { get; set; }
         public string BankAccountNo { get; set; }
         public decimal SalaryWithTax { get; set; }
-        public IList<int> Allowances { get; set; }
+        public IList<string> Allowances { get; set; }
 
         //Social Accounts
         public string GooglePlusLink { get; set; }

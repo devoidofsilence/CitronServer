@@ -12,6 +12,7 @@ namespace CitronAppCore.DomainManagers
         Project AddProject(Project project);
         Project UpdateProject(Project project);
         Project DeleteProject(Project project);
+        Project GetProjectDetail(string code);
         IList<Project> GetProjects(Func<Project, bool> condition);
     }
 }

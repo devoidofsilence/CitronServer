@@ -85,6 +85,17 @@ namespace CitronInfrastructure
             return employee;
         }
 
+        public Employee GetEmployeeJobDetail(string employeeCode)
+        {
+            Employee employee = new Employee();
+            if (!string.IsNullOrEmpty(employeeCode))
+            {
+                employee = _employeeJobDetailPersistenceManager.Find(employeeCode);
+            }
+
+            return employee;
+        }
+
         public Employee DeleteEmployeeJobDetail(Employee employee)
         {
             _employeeJobDetailPersistenceManager.Delete(employee);
@@ -111,6 +122,17 @@ namespace CitronInfrastructure
         public Employee DeleteEmployeeAccountDetail(Employee employee)
         {
             _employeeAccountDetailPersistenceManager.Delete(employee);
+
+            return employee;
+        }
+
+        public Employee GetEmployeeAccountDetail(string employeeCode)
+        {
+            Employee employee = new Employee();
+            if (!string.IsNullOrEmpty(employeeCode))
+            {
+                employee = _employeeAccountDetailPersistenceManager.Find(employeeCode);
+            }
 
             return employee;
         }

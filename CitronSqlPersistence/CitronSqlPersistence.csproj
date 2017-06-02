@@ -81,6 +81,26 @@
     <Compile Include="Migrations\201705291035031_new WBS tables.Designer.cs">
       <DependentUpon>201705291035031_new WBS tables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705300617072_Added fields to Project table.cs" />
+    <Compile Include="Migrations\201705300617072_Added fields to Project table.Designer.cs">
+      <DependentUpon>201705300617072_Added fields to Project table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706010234395_made some changes to variable types.cs" />
+    <Compile Include="Migrations\201706010234395_made some changes to variable types.Designer.cs">
+      <DependentUpon>201706010234395_made some changes to variable types.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706010350553_made some changes to variable types in department table.cs" />
+    <Compile Include="Migrations\201706010350553_made some changes to variable types in department table.Designer.cs">
+      <DependentUpon>201706010350553_made some changes to variable types in department table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706010600130_changes in allowances detail crud operation.cs" />
+    <Compile Include="Migrations\201706010600130_changes in allowances detail crud operation.Designer.cs">
+      <DependentUpon>201706010600130_changes in allowances detail crud operation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706011814523_Some changes to database.cs" />
+    <Compile Include="Migrations\201706011814523_Some changes to database.Designer.cs">
+      <DependentUpon>201706011814523_Some changes to database.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PersistenceEntities\EmployeeAccountDetailPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\EmployeeAllowanceDetailPersistenceEntity.cs" />
@@ -90,9 +110,11 @@
     <Compile Include="PersistenceEntities\EmployeePersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\EmployeeSalaryHistoryPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\LeavePersistenceEntity.cs" />
+    <Compile Include="PersistenceEntities\ProjectAssignedEmployeesPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\ProjectPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\ProjectTaskPersistenceEntity.cs" />
     <Compile Include="PersonalityTypePersistenceManager.cs" />
+    <Compile Include="ProjectAssignedEmployeesPersistenceManager.cs" />
     <Compile Include="ProjectPersistenceManager.cs" />
     <Compile Include="ProjectTaskPersistenceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,6 +144,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705291035031_new WBS tables.resx">
       <DependentUpon>201705291035031_new WBS tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705300617072_Added fields to Project table.resx">
+      <DependentUpon>201705300617072_Added fields to Project table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706010234395_made some changes to variable types.resx">
+      <DependentUpon>201706010234395_made some changes to variable types.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706010350553_made some changes to variable types in department table.resx">
+      <DependentUpon>201706010350553_made some changes to variable types in department table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706010600130_changes in allowances detail crud operation.resx">
+      <DependentUpon>201706010600130_changes in allowances detail crud operation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706011814523_Some changes to database.resx">
+      <DependentUpon>201706011814523_Some changes to database.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,14 +14,26 @@ namespace CitronSqlPersistence
         SqlDbContext db = new SqlDbContext();
         public Employee Create(Employee employee)
         {
+            var dh = new TempDataHolder();
             Delete(employee);
             var employeeSelected = db.EmployeePersistenceEntities.FirstOrDefault(e => e.Code == employee.Code);
-            foreach (var item in employee.Allowances)
+            if (employee.Allowances != null)
             {
-                var employeeAllowanceDetailPersistenceEntity = new EmployeeAllowanceDetailPersistenceEntity();
-                employeeAllowanceDetailPersistenceEntity.AllowanceID = item;
-                employeeAllowanceDetailPersistenceEntity.EmployeeID = employeeSelected.ID;
-                db.EmployeeAllowanceDetailPersistenceEntities.Add(employeeAllowanceDetailPersistenceEntity);
+                foreach (var item in employee.Allowances)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        var allowancePersistenceEntity = db.AllowancePersistenceEntities.FirstOrDefault(e => e.Code == item);
+                        if (allowancePersistenceEntity != null)
+                        {
+                            dh.allowanceTypeID = allowancePersistenceEntity.ID;
+                        }
+                    }
+                    var employeeAllowanceDetailPersistenceEntity = new EmployeeAllowanceDetailPersistenceEntity();
+                    employeeAllowanceDetailPersistenceEntity.AllowanceID = dh.allowanceTypeID;
+                    employeeAllowanceDetailPersistenceEntity.EmployeeID = employeeSelected.ID;
+                    db.EmployeeAllowanceDetailPersistenceEntities.Add(employeeAllowanceDetailPersistenceEntity);
+                }
             }
 
             db.SaveChanges();

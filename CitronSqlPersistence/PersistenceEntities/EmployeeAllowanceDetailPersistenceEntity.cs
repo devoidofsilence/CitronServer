@@ -15,7 +15,7 @@ namespace CitronSqlPersistence.PersistenceEntities
         public int EmployeeID { get; set; }
         public EmployeePersistenceEntity employeePersistenceEntity { get; set; }
         [ForeignKey("allowancePersistenceEntity")]
-        public int AllowanceID { get; set; }
+        public int? AllowanceID { get; set; }
         public AllowancePersistenceEntity allowancePersistenceEntity { get; set; }
     }
 }

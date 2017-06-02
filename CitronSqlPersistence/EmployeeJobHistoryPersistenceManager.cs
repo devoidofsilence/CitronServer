@@ -20,9 +20,9 @@ namespace CitronSqlPersistence
             {
                 var employeeJobHistoryPersistenceEntity = new EmployeeJobHistoryPersistenceEntity();
                 employeeJobHistoryPersistenceEntity.EmployeeID = employeeSelected.ID;
-                employeeJobHistoryPersistenceEntity.DesignationID = employeeSelectedinJobDetail.DesignationID;
+                //employeeJobHistoryPersistenceEntity.DesignationID = employeeSelectedinJobDetail.DesignationID;
                 employeeJobHistoryPersistenceEntity.Description = employee.JobDescription;
-                employeeJobHistoryPersistenceEntity.DepartmentID = item;
+                //employeeJobHistoryPersistenceEntity.DepartmentID = item;
                 employeeJobHistoryPersistenceEntity.AssignedFrom = new DateTime();
                 employeeJobHistoryPersistenceEntity.AssignedTo = DateTime.Now;
                 db.EmployeeJobHistoryPersistenceEntities.Add(employeeJobHistoryPersistenceEntity);

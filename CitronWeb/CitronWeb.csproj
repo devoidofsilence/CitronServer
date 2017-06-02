@@ -213,6 +213,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HRModuleController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\WBSModuleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -251,13 +252,13 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="static\css\app.bfc8bd0c21eeba5a3a6e1683fc339dcd.css" />
-    <Content Include="static\js\app.2fab5927eece80675e7e.js" />
+    <Content Include="static\css\app.e4222b810d3ba97a346023a7caa6d3c8.css" />
+    <Content Include="static\js\app.7524e9f68a2936dee832.js" />
     <Content Include="static\js\jquery-ui.js" />
     <Content Include="static\js\jquery.simpler-sidebar.min.js" />
     <Content Include="static\js\main-sidebar-right-top.js" />
-    <Content Include="static\js\manifest.785627f3913ddd47710c.js" />
-    <Content Include="static\js\vendor.dd7d8ce85892b2c3bccb.js" />
+    <Content Include="static\js\manifest.053db16a7ad3b1661643.js" />
+    <Content Include="static\js\vendor.d3c2847cb07fc250c425.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -294,16 +295,18 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="static\css\app.bfc8bd0c21eeba5a3a6e1683fc339dcd.css.map" />
-    <Content Include="static\js\app.2fab5927eece80675e7e.js.map" />
-    <Content Include="static\js\manifest.785627f3913ddd47710c.js.map" />
-    <Content Include="static\js\vendor.dd7d8ce85892b2c3bccb.js.map" />
+    <Content Include="static\css\app.e4222b810d3ba97a346023a7caa6d3c8.css.map" />
+    <Content Include="static\js\app.7524e9f68a2936dee832.js.map" />
+    <Content Include="static\js\manifest.053db16a7ad3b1661643.js.map" />
+    <Content Include="static\js\vendor.d3c2847cb07fc250c425.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Client\assets\" />
     <Folder Include="Client\components\" />
     <Folder Include="Client\router\" />
+    <Folder Include="node_modules\vuejs-datepicker\" />
+    <Folder Include="Views\WBSModule\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -30,6 +30,7 @@ namespace CitronSqlPersistence
 
         public DbSet<ProjectPersistenceEntity> ProjectPersistenceEntities { get; set; }
         public DbSet<ProjectTaskPersistenceEntity> ProjectTaskPersistenceEntities { get; set; }
+        public DbSet<ProjectAssignedEmployeesPersistenceEntity> ProjectAssignedEmployeesPersistenceEntities { get; set; }
         public SqlDbContext() : base("ConnectionString")
         {
 
