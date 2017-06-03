@@ -75,11 +75,17 @@ namespace CitronSqlPersistence
                     project.Status = aggProjectTable.Status;
                     project.PercentageCompleted = aggProjectTable.PercentageCompleted;
                     var assignedEmployeesCollection = aggregatedTable.AsEnumerable().Select(e => e.AssignedEmployees);
-                    var tt1 = assignedEmployeesCollection.ToList();
+                    var tableEmployeesAssigned = assignedEmployeesCollection.ToList();
                     project.AssignedEmployees = new List<string>();
-                    foreach (var item in assignedEmployeesCollection)
+                    if (aggregatedTable.FirstOrDefault().AssignedEmployees != null)
                     {
-                        project.AssignedEmployees.Add(item.employeePersistenceEntity.Code);
+                        if (assignedEmployeesCollection != null && tableEmployeesAssigned.Count != 0)
+                        {
+                            foreach (var item in assignedEmployeesCollection)
+                            {
+                                project.AssignedEmployees.Add(item.employeePersistenceEntity.Code);
+                            }
+                        }
                     }
                 }
             }

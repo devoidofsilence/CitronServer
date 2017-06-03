@@ -101,6 +101,18 @@
     <Compile Include="Migrations\201706011814523_Some changes to database.Designer.cs">
       <DependentUpon>201706011814523_Some changes to database.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706020839169_Some changes to databases new.cs" />
+    <Compile Include="Migrations\201706020839169_Some changes to databases new.Designer.cs">
+      <DependentUpon>201706020839169_Some changes to databases new.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706020957526_Some changes to databases keys.cs" />
+    <Compile Include="Migrations\201706020957526_Some changes to databases keys.Designer.cs">
+      <DependentUpon>201706020957526_Some changes to databases keys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706030737202_Added delete cascades new.cs" />
+    <Compile Include="Migrations\201706030737202_Added delete cascades new.Designer.cs">
+      <DependentUpon>201706030737202_Added delete cascades new.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PersistenceEntities\EmployeeAccountDetailPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\EmployeeAllowanceDetailPersistenceEntity.cs" />
@@ -159,6 +171,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706011814523_Some changes to database.resx">
       <DependentUpon>201706011814523_Some changes to database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706020839169_Some changes to databases new.resx">
+      <DependentUpon>201706020839169_Some changes to databases new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706020957526_Some changes to databases keys.resx">
+      <DependentUpon>201706020957526_Some changes to databases keys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706030737202_Added delete cascades new.resx">
+      <DependentUpon>201706030737202_Added delete cascades new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

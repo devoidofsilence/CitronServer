@@ -31,7 +31,7 @@ namespace CitronSqlPersistence
                         }
                     }
                     var employeeJobDepartmentDetailPersistenceEntity = new EmployeeJobDepartmentDetailPersistenceEntity();
-                    employeeJobDepartmentDetailPersistenceEntity.DepartmentID = dh.jobDepartmentID;
+                    employeeJobDepartmentDetailPersistenceEntity.DepartmentID = dh.jobDepartmentID ?? default(int);
                     employeeJobDepartmentDetailPersistenceEntity.EmployeeID = employeeSelected.ID;
                     db.EmployeeJobDepartmentDetailPersistenceEntities.Add(employeeJobDepartmentDetailPersistenceEntity);
                 }

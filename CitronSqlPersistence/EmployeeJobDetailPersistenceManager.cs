@@ -121,13 +121,17 @@ namespace CitronSqlPersistence
                     employee.ExperienceYearsOnOfficeJoin = aggEmployeeJobDtlTblValue.ExperienceYearsOnOfficeJoin;
                     employee.ExperienceMonthsOnOfficeJoin = aggEmployeeJobDtlTblValue.ExperienceMonthsOnOfficeJoin;
                 }
-                var aggEmployeeJobDptDtlTblValue = aggregatedTable.Select(e => e.EmployeeJobDepartmentDetail);
-                employee.JobDepartments = new List<string>();
-                if (aggEmployeeJobDptDtlTblValue != null)
+                if (aggregatedTable.FirstOrDefault().EmployeeJobDepartmentDetail != null)
                 {
-                    foreach (var item in aggEmployeeJobDptDtlTblValue)
+                    var aggEmployeeJobDptDtlTblValue = aggregatedTable.Select(e => e.EmployeeJobDepartmentDetail);
+                    employee.JobDepartments = new List<string>();
+                    var tableDptDtl = aggEmployeeJobDptDtlTblValue.ToList();
+                    if (aggEmployeeJobDptDtlTblValue != null && tableDptDtl.Count != 0)
                     {
-                        employee.JobDepartments.Add(item.jobDepartmentPersistenceEntity.Code);
+                        foreach (var item in aggEmployeeJobDptDtlTblValue)
+                        {
+                            employee.JobDepartments.Add(item.jobDepartmentPersistenceEntity.Code);
+                        }
                     }
                 }
                 if (aggregatedTable.FirstOrDefault().JobDepartments != null)

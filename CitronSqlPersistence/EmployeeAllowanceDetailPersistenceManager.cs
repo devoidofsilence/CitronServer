@@ -30,7 +30,7 @@ namespace CitronSqlPersistence
                         }
                     }
                     var employeeAllowanceDetailPersistenceEntity = new EmployeeAllowanceDetailPersistenceEntity();
-                    employeeAllowanceDetailPersistenceEntity.AllowanceID = dh.allowanceTypeID;
+                    employeeAllowanceDetailPersistenceEntity.AllowanceID = dh.allowanceTypeID ?? default(int);
                     employeeAllowanceDetailPersistenceEntity.EmployeeID = employeeSelected.ID;
                     db.EmployeeAllowanceDetailPersistenceEntities.Add(employeeAllowanceDetailPersistenceEntity);
                 }

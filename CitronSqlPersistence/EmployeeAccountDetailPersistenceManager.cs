@@ -98,9 +98,16 @@ namespace CitronSqlPersistence
                 {
                     var aggEmployeeAllowanceDtlTblValue = aggregatedTable.Select(e => e.EmployeeAllowanceDetail);
                     employee.Allowances = new List<string>();
-                    foreach (var item in aggEmployeeAllowanceDtlTblValue)
+                    var tableAllDtl = aggEmployeeAllowanceDtlTblValue.ToList();
+                    if (aggEmployeeAllowanceDtlTblValue != null && tableAllDtl.Count != 0)
                     {
-                        employee.Allowances.Add(item.allowancePersistenceEntity.Code);
+                        foreach (var item in aggEmployeeAllowanceDtlTblValue)
+                        {
+                            if (item.allowancePersistenceEntity != null)
+                            {
+                                employee.Allowances.Add(item.allowancePersistenceEntity.Code);
+                            }
+                        }
                     }
                 }
                 if (aggregatedTable.FirstOrDefault().Allowances != null)

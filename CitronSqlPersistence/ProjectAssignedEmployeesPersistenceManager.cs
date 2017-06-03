@@ -30,7 +30,7 @@ namespace CitronSqlPersistence
                         }
                     }
                     var projectAssignedEmployeesPersistenceEntity = new ProjectAssignedEmployeesPersistenceEntity();
-                    projectAssignedEmployeesPersistenceEntity.EmployeeID = dh.employeeID;
+                    projectAssignedEmployeesPersistenceEntity.EmployeeID = dh.employeeID ?? default(int);
                     projectAssignedEmployeesPersistenceEntity.ProjectID = projectSelected.ID;
                     db.ProjectAssignedEmployeesPersistenceEntities.Add(projectAssignedEmployeesPersistenceEntity);
                 }

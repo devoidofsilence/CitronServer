@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CitronSqlPersistence.ConfigurationPersistenceEntities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,11 +21,16 @@ namespace CitronSqlPersistence.PersistenceEntities
         public string Name { get; set; }
         public byte[] Photo { get; set; }
         public DateTime? Birthday { get; set; }
+        [ForeignKey("maritalStatusPersistenceEntity")]
         public int? MaritalStatus { get; set; }
+        public MaritalStatusPersistenceEntity maritalStatusPersistenceEntity { get; set; }
+        [ForeignKey("personalityTypePersistenceEntity")]
         public int? PersonalityType { get; set; }
+        public PersonalityTypePersistenceEntity personalityTypePersistenceEntity { get; set; }
+        [ForeignKey("bloodGroupPersistenceEntity")]
         public int? BloodGroup { get; set; }
+        public BloodGroupPersistenceEntity bloodGroupPersistenceEntity { get; set; }
         public string CitizenshipNo { get; set; }
-        [Index(IsUnique = true)]
         [MaxLength(200)]
         public string EmailId { get; set; }
         public string LocalAddress { get; set; }

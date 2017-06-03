@@ -72,7 +72,7 @@ namespace CitronSqlPersistence
             var projectTaskPersistenceEntity = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.Code == projectTask.Code);
             projectTaskPersistenceEntity.Code = projectTask.Code.NullIfEmptyString();
             projectTaskPersistenceEntity.Name = projectTask.Name.NullIfEmptyString();
-            projectTaskPersistenceEntity.Description = projectTask.Name.NullIfEmptyString();
+            projectTaskPersistenceEntity.Description = projectTask.Description.NullIfEmptyString();
             projectTaskPersistenceEntity.ParentProjectTaskID = dh.parentTaskID;
             projectTaskPersistenceEntity.ResponsibleEmployeeID = dh.responsibleEmployeeID;
             projectTaskPersistenceEntity.OptimisticTime = projectTask.OptimisticTime;

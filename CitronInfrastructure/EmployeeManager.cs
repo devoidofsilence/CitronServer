@@ -98,6 +98,7 @@ namespace CitronInfrastructure
 
         public Employee DeleteEmployeeJobDetail(Employee employee)
         {
+            _employeeJobDepartmentDetailPersistenceManager.Delete(employee);
             _employeeJobDetailPersistenceManager.Delete(employee);
 
             return employee;
@@ -121,6 +122,7 @@ namespace CitronInfrastructure
 
         public Employee DeleteEmployeeAccountDetail(Employee employee)
         {
+            _employeeAllowanceDetailPersistenceManager.Delete(employee);
             _employeeAccountDetailPersistenceManager.Delete(employee);
 
             return employee;
