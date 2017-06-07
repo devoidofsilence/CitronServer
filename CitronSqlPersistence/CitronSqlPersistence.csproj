@@ -113,6 +113,34 @@
     <Compile Include="Migrations\201706030737202_Added delete cascades new.Designer.cs">
       <DependentUpon>201706030737202_Added delete cascades new.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706031137427_Added delete cascades in live.cs" />
+    <Compile Include="Migrations\201706031137427_Added delete cascades in live.Designer.cs">
+      <DependentUpon>201706031137427_Added delete cascades in live.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706031211030_Added delete cascades in live2.cs" />
+    <Compile Include="Migrations\201706031211030_Added delete cascades in live2.Designer.cs">
+      <DependentUpon>201706031211030_Added delete cascades in live2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706040238553_Some minor changes.cs" />
+    <Compile Include="Migrations\201706040238553_Some minor changes.Designer.cs">
+      <DependentUpon>201706040238553_Some minor changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706050536342_Added Project column in task table.cs" />
+    <Compile Include="Migrations\201706050536342_Added Project column in task table.Designer.cs">
+      <DependentUpon>201706050536342_Added Project column in task table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706051121136_Added Project column in task tables.cs" />
+    <Compile Include="Migrations\201706051121136_Added Project column in task tables.Designer.cs">
+      <DependentUpon>201706051121136_Added Project column in task tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706051150167_Made required Project column in task tables.cs" />
+    <Compile Include="Migrations\201706051150167_Made required Project column in task tables.Designer.cs">
+      <DependentUpon>201706051150167_Made required Project column in task tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706060853099_Added table for assignees of Tasks.cs" />
+    <Compile Include="Migrations\201706060853099_Added table for assignees of Tasks.Designer.cs">
+      <DependentUpon>201706060853099_Added table for assignees of Tasks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PersistenceEntities\EmployeeAccountDetailPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\EmployeeAllowanceDetailPersistenceEntity.cs" />
@@ -124,10 +152,12 @@
     <Compile Include="PersistenceEntities\LeavePersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\ProjectAssignedEmployeesPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\ProjectPersistenceEntity.cs" />
+    <Compile Include="PersistenceEntities\ProjectTaskAssignedEmployeesPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\ProjectTaskPersistenceEntity.cs" />
     <Compile Include="PersonalityTypePersistenceManager.cs" />
     <Compile Include="ProjectAssignedEmployeesPersistenceManager.cs" />
     <Compile Include="ProjectPersistenceManager.cs" />
+    <Compile Include="ProjectTaskAssignedEmployeesPersistenceManager.cs" />
     <Compile Include="ProjectTaskPersistenceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlDbContext.cs" />
@@ -180,6 +210,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706030737202_Added delete cascades new.resx">
       <DependentUpon>201706030737202_Added delete cascades new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706031137427_Added delete cascades in live.resx">
+      <DependentUpon>201706031137427_Added delete cascades in live.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706031211030_Added delete cascades in live2.resx">
+      <DependentUpon>201706031211030_Added delete cascades in live2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706040238553_Some minor changes.resx">
+      <DependentUpon>201706040238553_Some minor changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706050536342_Added Project column in task table.resx">
+      <DependentUpon>201706050536342_Added Project column in task table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706051121136_Added Project column in task tables.resx">
+      <DependentUpon>201706051121136_Added Project column in task tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706051150167_Made required Project column in task tables.resx">
+      <DependentUpon>201706051150167_Made required Project column in task tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706060853099_Added table for assignees of Tasks.resx">
+      <DependentUpon>201706060853099_Added table for assignees of Tasks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

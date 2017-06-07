@@ -18,9 +18,10 @@ namespace CitronSqlPersistence.PersistenceEntities
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
-        [ForeignKey("parentTaskPersistenceEntity")]
-        public int? ParentProjectTaskID { get; set; }
-        public ProjectTaskPersistenceEntity parentTaskPersistenceEntity { get; set; }
+        [Required]
+        [ForeignKey("projectPersistenceEntity")]
+        public int? ProjectID { get; set; }
+        public ProjectPersistenceEntity projectPersistenceEntity { get; set; }
         [ForeignKey("responsibleEmployeePersistenceEntity")]
         public int? ResponsibleEmployeeID { get; set; }
         public EmployeePersistenceEntity responsibleEmployeePersistenceEntity { get; set; }
@@ -29,5 +30,6 @@ namespace CitronSqlPersistence.PersistenceEntities
         public int PessimisticTime { get; set; }
         public int NormalTime { get; set; }
         public int ExpectedTime { get; set; }
+        public int? ParentProjectTaskID { get; set; }
     }
 }

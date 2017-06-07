@@ -32,10 +32,12 @@ namespace CitronSqlPersistence
         public string employeeCode = null;
         public string allowanceTypeCode = null;
 
+        public int? projectID = null;
         public int? parentTaskID = null;
         public int? responsibleEmployeeID = null;
 
         public string parentTaskCode = null;
+        public string projectCode = null;
         public string responsibleEmployeeCode = null;
     }
 

@@ -15,8 +15,12 @@ namespace CitronAppCore.DomainEntities
         public int PessimisticTime { get; set; }
         public int NormalTime { get; set; }
         public int ExpectedTime { get; set; }
-        public string ParentTask { get; set; }
-        public string ResponsibleEmployee { get; set; }
-        public IList<string> EmployeesNeededForTaskCompletion { get; set; }
+        public string ProjectCode { get; set; }
+        public string ProjectName { get; set; }
+        public string ParentTaskCode { get; set; }
+        public string ParentTaskName { get; set; }
+        public string ResponsibleEmployeeCode { get; set; }
+        public string ResponsibleEmployeeName { get; set; }
+        public IList<string> AssignedEmployees { get; set; }
     }
 }

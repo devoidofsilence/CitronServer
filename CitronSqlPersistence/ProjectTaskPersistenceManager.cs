@@ -16,17 +16,25 @@ namespace CitronSqlPersistence
         public ProjectTask Create(ProjectTask projectTask)
         {
             var dh = new TempDataHolder();
-            if (!string.IsNullOrEmpty(projectTask.ParentTask))
+            if (!string.IsNullOrEmpty(projectTask.ProjectCode))
             {
-                var parentTaskPersistenceEntity = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.Code == projectTask.ParentTask);
+                var parentPersistenceEntity = db.ProjectPersistenceEntities.FirstOrDefault(e => e.Code == projectTask.ProjectCode);
+                if (parentPersistenceEntity != null)
+                {
+                    dh.projectID = parentPersistenceEntity.ID;
+                }
+            }
+            if (!string.IsNullOrEmpty(projectTask.ParentTaskCode))
+            {
+                var parentTaskPersistenceEntity = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.Code == projectTask.ParentTaskCode);
                 if (parentTaskPersistenceEntity != null)
                 {
                     dh.parentTaskID = parentTaskPersistenceEntity.ID;
                 }
             }
-            if (!string.IsNullOrEmpty(projectTask.ResponsibleEmployee))
+            if (!string.IsNullOrEmpty(projectTask.ResponsibleEmployeeCode))
             {
-                var responsibleEmployeePersistenceEntity = db.EmployeePersistenceEntities.FirstOrDefault(e => e.Code == projectTask.ResponsibleEmployee);
+                var responsibleEmployeePersistenceEntity = db.EmployeePersistenceEntities.FirstOrDefault(e => e.Code == projectTask.ResponsibleEmployeeCode);
                 if (responsibleEmployeePersistenceEntity != null)
                 {
                     dh.responsibleEmployeeID = responsibleEmployeePersistenceEntity.ID;
@@ -38,6 +46,7 @@ namespace CitronSqlPersistence
                 Code = projectTask.Code.NullIfEmptyString(),
                 Name = projectTask.Name.NullIfEmptyString(),
                 Description = projectTask.Description.NullIfEmptyString(),
+                ProjectID = dh.projectID,
                 ParentProjectTaskID = dh.parentTaskID,
                 ResponsibleEmployeeID = dh.responsibleEmployeeID,
                 OptimisticTime = projectTask.OptimisticTime,
@@ -53,17 +62,25 @@ namespace CitronSqlPersistence
         public ProjectTask Update(ProjectTask projectTask)
         {
             var dh = new TempDataHolder();
-            if (!string.IsNullOrEmpty(projectTask.ParentTask))
+            if (!string.IsNullOrEmpty(projectTask.ProjectCode))
             {
-                var parentTaskPersistenceEntity = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.Code == projectTask.ParentTask);
+                var parentPersistenceEntity = db.ProjectPersistenceEntities.FirstOrDefault(e => e.Code == projectTask.ProjectCode);
+                if (parentPersistenceEntity != null)
+                {
+                    dh.projectID = parentPersistenceEntity.ID;
+                }
+            }
+            if (!string.IsNullOrEmpty(projectTask.ParentTaskCode))
+            {
+                var parentTaskPersistenceEntity = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.Code == projectTask.ParentTaskCode);
                 if (parentTaskPersistenceEntity != null)
                 {
                     dh.parentTaskID = parentTaskPersistenceEntity.ID;
                 }
             }
-            if (!string.IsNullOrEmpty(projectTask.ResponsibleEmployee))
+            if (!string.IsNullOrEmpty(projectTask.ResponsibleEmployeeCode))
             {
-                var responsibleEmployeePersistenceEntity = db.EmployeePersistenceEntities.FirstOrDefault(e => e.Code == projectTask.ResponsibleEmployee);
+                var responsibleEmployeePersistenceEntity = db.EmployeePersistenceEntities.FirstOrDefault(e => e.Code == projectTask.ResponsibleEmployeeCode);
                 if (responsibleEmployeePersistenceEntity != null)
                 {
                     dh.responsibleEmployeeID = responsibleEmployeePersistenceEntity.ID;
@@ -73,6 +90,7 @@ namespace CitronSqlPersistence
             projectTaskPersistenceEntity.Code = projectTask.Code.NullIfEmptyString();
             projectTaskPersistenceEntity.Name = projectTask.Name.NullIfEmptyString();
             projectTaskPersistenceEntity.Description = projectTask.Description.NullIfEmptyString();
+            projectTaskPersistenceEntity.ProjectID = dh.projectID;
             projectTaskPersistenceEntity.ParentProjectTaskID = dh.parentTaskID;
             projectTaskPersistenceEntity.ResponsibleEmployeeID = dh.responsibleEmployeeID;
             projectTaskPersistenceEntity.OptimisticTime = projectTask.OptimisticTime;
@@ -96,36 +114,71 @@ namespace CitronSqlPersistence
         public ProjectTask Find(string code)
         {
             var dh = new TempDataHolder();
-            var projectTaskPersistenceEntity = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.Code == code);
-
+            //var projectTaskPersistenceEntity = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.Code == code);
+            var aggregatedTable = (from projectTaskTable in db.ProjectTaskPersistenceEntities.Where(e => e.Code == code)
+                                   join projectTaskAssignedEmployeesTable in db.ProjectTaskAssignedEmployeesPersistenceEntities on projectTaskTable.ID equals projectTaskAssignedEmployeesTable.ProjectTaskID into ppaeJoin
+                                   from ppae in ppaeJoin.DefaultIfEmpty()
+                                   join employeesTable in db.EmployeePersistenceEntities on ppae.EmployeeID equals employeesTable.ID into ppaeeJoin
+                                   from ppaee in ppaeeJoin.DefaultIfEmpty()
+                                   select new { Project = projectTaskTable, AssignedEmployees = ppae });
+            var tableList = aggregatedTable.ToList();
             ProjectTask projectTask = new ProjectTask();
-            if (projectTaskPersistenceEntity != null)
+            if (aggregatedTable != null && tableList.Count != 0)
             {
-                if (projectTaskPersistenceEntity.ParentProjectTaskID != null)
+                if (aggregatedTable.FirstOrDefault().Project != null)
                 {
-                    var parentTaskPersistenceEntity = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.ID == projectTaskPersistenceEntity.ParentProjectTaskID);
-                    if (parentTaskPersistenceEntity != null)
+                    var aggProjectTable = aggregatedTable.FirstOrDefault().Project;
+                    if (aggProjectTable.ParentProjectTaskID != null)
                     {
-                        dh.parentTaskCode = parentTaskPersistenceEntity.Code;
+                        var projectPersistenceEntity = db.ProjectPersistenceEntities.FirstOrDefault(e => e.ID == aggProjectTable.ProjectID);
+                        if (projectPersistenceEntity != null)
+                        {
+                            dh.projectCode = projectPersistenceEntity.Code;
+                            projectTask.ProjectName = projectPersistenceEntity.Name;
+                        }
+                    }
+                    if (aggProjectTable.ParentProjectTaskID != null)
+                    {
+                        var parentTaskPersistenceEntity = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.ID == aggProjectTable.ParentProjectTaskID);
+                        if (parentTaskPersistenceEntity != null)
+                        {
+                            dh.parentTaskCode = parentTaskPersistenceEntity.Code;
+                            projectTask.ParentTaskName = parentTaskPersistenceEntity.Name;
+                        }
+                    }
+                    if (aggProjectTable.ParentProjectTaskID != null)
+                    {
+                        var responsibleEmployeePersistenceEntity = db.EmployeePersistenceEntities.FirstOrDefault(e => e.ID == aggProjectTable.ResponsibleEmployeeID);
+                        if (responsibleEmployeePersistenceEntity != null)
+                        {
+                            dh.responsibleEmployeeCode = responsibleEmployeePersistenceEntity.Code;
+                            projectTask.ResponsibleEmployeeName = responsibleEmployeePersistenceEntity.Name;
+                        }
+                    }
+                    projectTask.Code = aggProjectTable.Code;
+                    projectTask.Name = aggProjectTable.Name;
+                    projectTask.Description = aggProjectTable.Description;
+                    projectTask.ProjectCode = dh.projectCode;
+                    projectTask.ParentTaskCode = dh.parentTaskCode;
+                    projectTask.ResponsibleEmployeeCode = dh.responsibleEmployeeCode;
+                    projectTask.ExpectedTime = aggProjectTable.ExpectedTime;
+                    projectTask.OptimisticTime = aggProjectTable.OptimisticTime;
+                    projectTask.NormalTime = aggProjectTable.NormalTime;
+                    projectTask.PessimisticTime = aggProjectTable.PessimisticTime;
+                    var assignedEmployeesCollection = aggregatedTable.AsEnumerable().Select(e => e.AssignedEmployees);
+                    var tableEmployeesAssigned = assignedEmployeesCollection.ToList();
+                    projectTask.AssignedEmployees = new List<string>();
+                    if (aggregatedTable.FirstOrDefault().AssignedEmployees != null)
+                    {
+                        if (assignedEmployeesCollection != null && tableEmployeesAssigned.Count != 0)
+                        {
+                            foreach (var item in assignedEmployeesCollection)
+                            {
+                                projectTask.AssignedEmployees.Add(item.employeePersistenceEntity.Code);
+                            }
+                        }
                     }
                 }
-                if (projectTaskPersistenceEntity.ParentProjectTaskID != null)
-                {
-                    var responsibleEmployeePersistenceEntity = db.EmployeePersistenceEntities.FirstOrDefault(e => e.ID == projectTaskPersistenceEntity.ResponsibleEmployeeID);
-                    if (responsibleEmployeePersistenceEntity != null)
-                    {
-                        dh.responsibleEmployeeCode = responsibleEmployeePersistenceEntity.Code;
-                    }
-                }
-                projectTask.Code = projectTaskPersistenceEntity.Code;
-                projectTask.Name = projectTaskPersistenceEntity.Name;
-                projectTask.Description = projectTaskPersistenceEntity.Description;
-                projectTask.ParentTask = dh.parentTaskCode;
-                projectTask.ResponsibleEmployee = dh.responsibleEmployeeCode;
-                projectTask.ExpectedTime = projectTaskPersistenceEntity.ExpectedTime;
-                projectTask.OptimisticTime = projectTaskPersistenceEntity.OptimisticTime;
-                projectTask.NormalTime = projectTaskPersistenceEntity.NormalTime;
-                projectTask.PessimisticTime = projectTaskPersistenceEntity.PessimisticTime;
             }
             return projectTask;
         }
@@ -138,9 +191,11 @@ namespace CitronSqlPersistence
             var aggregatedTable = (from mainProjectTaskTable in db.ProjectTaskPersistenceEntities
                                    join parentProjectTaskTable in db.ProjectTaskPersistenceEntities on mainProjectTaskTable.ParentProjectTaskID equals parentProjectTaskTable.ID into ptJoin
                                    from pt in ptJoin.DefaultIfEmpty()
+                                   join projectTable in db.ProjectPersistenceEntities on mainProjectTaskTable.ProjectID equals projectTable.ID into repJoin
+                                   from rep in repJoin.DefaultIfEmpty()
                                    join responsibleEmployeeTable in db.EmployeePersistenceEntities on mainProjectTaskTable.ResponsibleEmployeeID equals responsibleEmployeeTable.ID into reJoin
                                    from re in reJoin.DefaultIfEmpty()
-                                   select new { MainProjectTask = mainProjectTaskTable, ParentTask = pt, ResponsibleEmployee = re });
+                                   select new { MainProjectTask = mainProjectTaskTable, ParentTask = pt, ResponsibleEmployee = re, ProjectTable = rep });
 
             var tt = aggregatedTable.ToList();
 
@@ -151,8 +206,12 @@ namespace CitronSqlPersistence
                     Code = projectTaskPersistenceEntity.MainProjectTask.Code,
                     Name = projectTaskPersistenceEntity.MainProjectTask.Name,
                     Description = projectTaskPersistenceEntity.MainProjectTask.Description,
-                    ParentTask = projectTaskPersistenceEntity.ParentTask == null ? null : projectTaskPersistenceEntity.ParentTask.Code,
-                    ResponsibleEmployee = projectTaskPersistenceEntity.ResponsibleEmployee== null ? null : projectTaskPersistenceEntity.ResponsibleEmployee.Code,
+                    ProjectCode = projectTaskPersistenceEntity.ProjectTable == null ? null : projectTaskPersistenceEntity.ProjectTable.Code,
+                    ProjectName = projectTaskPersistenceEntity.ProjectTable == null ? null : projectTaskPersistenceEntity.ProjectTable.Name,
+                    ParentTaskCode = projectTaskPersistenceEntity.ParentTask == null ? null : projectTaskPersistenceEntity.ParentTask.Code,
+                    ParentTaskName = projectTaskPersistenceEntity.ParentTask == null ? null : projectTaskPersistenceEntity.ParentTask.Name,
+                    ResponsibleEmployeeCode = projectTaskPersistenceEntity.ResponsibleEmployee == null ? null : projectTaskPersistenceEntity.ResponsibleEmployee.Code,
+                    ResponsibleEmployeeName = projectTaskPersistenceEntity.ResponsibleEmployee == null ? null : projectTaskPersistenceEntity.ResponsibleEmployee.Name,
                     ExpectedTime = projectTaskPersistenceEntity.MainProjectTask.ExpectedTime,
                     OptimisticTime = projectTaskPersistenceEntity.MainProjectTask.OptimisticTime,
                     PessimisticTime = projectTaskPersistenceEntity.MainProjectTask.PessimisticTime,

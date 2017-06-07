@@ -48,6 +48,7 @@
     <Compile Include="MaritalStatusManager.cs" />
     <Compile Include="PersistenceManagers\IProjectAssignedEmployeesPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IProjectPersistenceManager.cs" />
+    <Compile Include="PersistenceManagers\IProjectTaskAssignedEmployeesPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IProjectTaskPersistenceManager.cs" />
     <Compile Include="PersonalityTypeManager.cs" />
     <Compile Include="JobDepartmentManager.cs" />

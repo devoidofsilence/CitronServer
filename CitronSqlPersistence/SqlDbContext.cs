@@ -31,9 +31,21 @@ namespace CitronSqlPersistence
         public DbSet<ProjectPersistenceEntity> ProjectPersistenceEntities { get; set; }
         public DbSet<ProjectTaskPersistenceEntity> ProjectTaskPersistenceEntities { get; set; }
         public DbSet<ProjectAssignedEmployeesPersistenceEntity> ProjectAssignedEmployeesPersistenceEntities { get; set; }
+        public DbSet<ProjectTaskAssignedEmployeesPersistenceEntity> ProjectTaskAssignedEmployeesPersistenceEntities { get; set; }
         public SqlDbContext() : base("ConnectionString")
         {
 
+        }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProjectTaskPersistenceEntity>()
+                .HasOptional<EmployeePersistenceEntity>(s => s.responsibleEmployeePersistenceEntity)
+                .WithMany()
+                .WillCascadeOnDelete(true);
+            //modelBuilder.Entity<ProjectTaskPersistenceEntity>()
+            //    .HasOptional<ProjectTaskPersistenceEntity>(s => s.parentTaskPersistenceEntity)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(true);
         }
     }
 }

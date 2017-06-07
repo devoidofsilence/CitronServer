@@ -12,9 +12,11 @@ namespace CitronInfrastructure
     public class ProjectTaskManager : IProjectTaskManager
     {
         IProjectTaskPersistenceManager _projectTaskPersistenceManager;
-        public ProjectTaskManager(IProjectTaskPersistenceManager projectTaskPersistenceManager)
+        IProjectTaskAssignedEmployeesPersistenceManager _projectTaskAssignedEmployeesPersistenceManager;
+        public ProjectTaskManager(IProjectTaskPersistenceManager projectTaskPersistenceManager, IProjectTaskAssignedEmployeesPersistenceManager projectTaskAssignedEmployeesPersistenceManager)
         {
             _projectTaskPersistenceManager = projectTaskPersistenceManager;
+            _projectTaskAssignedEmployeesPersistenceManager = projectTaskAssignedEmployeesPersistenceManager;
         }
 
         public ProjectTask AddProjectTask(ProjectTask projectTask)
@@ -23,6 +25,7 @@ namespace CitronInfrastructure
             if (string.IsNullOrEmpty(foundProjectTask.Code))
             {
                 _projectTaskPersistenceManager.Create(projectTask);
+                _projectTaskAssignedEmployeesPersistenceManager.Create(projectTask);
             }
             else
             {
@@ -33,6 +36,7 @@ namespace CitronInfrastructure
 
         public ProjectTask DeleteProjectTask(ProjectTask projectTask)
         {
+            _projectTaskAssignedEmployeesPersistenceManager.Delete(projectTask);
             _projectTaskPersistenceManager.Delete(projectTask);
             return projectTask;
         }
@@ -50,11 +54,23 @@ namespace CitronInfrastructure
             if (!string.IsNullOrEmpty(foundProjectTask.Code))
             {
                 _projectTaskPersistenceManager.Update(projectTask);
+                _projectTaskAssignedEmployeesPersistenceManager.Create(projectTask);
             }
             else
             {
                 throw new NotImplementedException();
             }
+            return projectTask;
+        }
+
+        public ProjectTask GetProjectTaskDetail(string projectTaskCode)
+        {
+            ProjectTask projectTask = new ProjectTask();
+            if (!string.IsNullOrEmpty(projectTaskCode))
+            {
+                projectTask = _projectTaskPersistenceManager.Find(projectTaskCode);
+            }
+
             return projectTask;
         }
     }

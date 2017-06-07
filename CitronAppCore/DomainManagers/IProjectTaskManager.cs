@@ -12,6 +12,7 @@ namespace CitronAppCore.DomainManagers
         ProjectTask AddProjectTask(ProjectTask project);
         ProjectTask UpdateProjectTask(ProjectTask project);
         ProjectTask DeleteProjectTask(ProjectTask project);
+        ProjectTask GetProjectTaskDetail(string code);
         IList<ProjectTask> GetProjectTasks(Func<ProjectTask, bool> condition);
     }
 }

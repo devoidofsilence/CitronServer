@@ -109,5 +109,16 @@ namespace CitronWeb.Controllers
             return _projectTaskManager.GetProjectTasks(null);
 
         }
+
+        [HttpGet]
+        [Route("api/WBSModule/GetProjectTaskDetail/{code}")]
+        public object GetProjectTaskDetail(string code)
+        {
+            if (code != null)
+            {
+                return _projectTaskManager.GetProjectTaskDetail(code);
+            }
+            return new ErrorResult() { Reason = "" };
+        }
     }
 }
