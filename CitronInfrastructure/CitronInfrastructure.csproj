@@ -46,7 +46,11 @@
     <Compile Include="Exceptions\EmployeeAlreadyExistsException.cs" />
     <Compile Include="Exceptions\EmployeeNotFoundException.cs" />
     <Compile Include="MaritalStatusManager.cs" />
+    <Compile Include="PersistenceManagers\IStakeholderPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IProjectAssignedEmployeesPersistenceManager.cs" />
+    <Compile Include="PersistenceManagers\IProjectCharterPersistenceManager.cs" />
+    <Compile Include="PersistenceManagers\IProjectCharterQuestionHeaderPersistenceManager.cs" />
+    <Compile Include="PersistenceManagers\IProjectCharterQuestionPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IProjectPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IProjectTaskAssignedEmployeesPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IProjectTaskPersistenceManager.cs" />
@@ -68,9 +72,13 @@
     <Compile Include="PersistenceManagers\IMaritalStatusPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IPersonalityTypePersistenceManager.cs" />
+    <Compile Include="ProjectCharterManager.cs" />
+    <Compile Include="ProjectCharterQuestionHeaderManager.cs" />
+    <Compile Include="ProjectCharterQuestionManager.cs" />
     <Compile Include="ProjectManager.cs" />
     <Compile Include="ProjectTaskManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StakeholderManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CitronAppCore\CitronAppCore.csproj">

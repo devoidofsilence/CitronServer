@@ -31,11 +31,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0-beta1\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -58,6 +58,8 @@
     <Compile Include="ConfigurationPersistenceEntities\JobDesignationPersistenceEntity.cs" />
     <Compile Include="ConfigurationPersistenceEntities\MaritalStatusPersistenceEntity.cs" />
     <Compile Include="ConfigurationPersistenceEntities\PersonalityTypePersistenceEntity.cs" />
+    <Compile Include="ConfigurationPersistenceEntities\ProjectCharterQuestionPersistenceEntity.cs" />
+    <Compile Include="ConfigurationPersistenceEntities\ProjectCharterQuestionHeaderPersistenceEntity.cs" />
     <Compile Include="EmployeeAccountDetailPersistenceManager.cs" />
     <Compile Include="EmployeeAllowanceDetailPersistenceManager.cs" />
     <Compile Include="EmployeeJobDepartmentDetailPersistenceManager.cs" />
@@ -141,6 +143,18 @@
     <Compile Include="Migrations\201706060853099_Added table for assignees of Tasks.Designer.cs">
       <DependentUpon>201706060853099_Added table for assignees of Tasks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706080924421_Added tables for ProjectCharter and Stakeholder.cs" />
+    <Compile Include="Migrations\201706080924421_Added tables for ProjectCharter and Stakeholder.Designer.cs">
+      <DependentUpon>201706080924421_Added tables for ProjectCharter and Stakeholder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706090844108_Added tables for ProjectCharter and Stakeholders.cs" />
+    <Compile Include="Migrations\201706090844108_Added tables for ProjectCharter and Stakeholders.Designer.cs">
+      <DependentUpon>201706090844108_Added tables for ProjectCharter and Stakeholders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706101439126_Code field removed from project charter table.cs" />
+    <Compile Include="Migrations\201706101439126_Code field removed from project charter table.Designer.cs">
+      <DependentUpon>201706101439126_Code field removed from project charter table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PersistenceEntities\EmployeeAccountDetailPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\EmployeeAllowanceDetailPersistenceEntity.cs" />
@@ -151,16 +165,21 @@
     <Compile Include="PersistenceEntities\EmployeeSalaryHistoryPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\LeavePersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\ProjectAssignedEmployeesPersistenceEntity.cs" />
+    <Compile Include="PersistenceEntities\ProjectCharterPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\ProjectPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\ProjectTaskAssignedEmployeesPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\ProjectTaskPersistenceEntity.cs" />
+    <Compile Include="PersistenceEntities\StakeholderPersistenceEntity.cs" />
     <Compile Include="PersonalityTypePersistenceManager.cs" />
     <Compile Include="ProjectAssignedEmployeesPersistenceManager.cs" />
+    <Compile Include="ProjectCharterPersistenceManager.cs" />
+    <Compile Include="ProjectCharterQuestionPersistenceManager.cs" />
     <Compile Include="ProjectPersistenceManager.cs" />
     <Compile Include="ProjectTaskAssignedEmployeesPersistenceManager.cs" />
     <Compile Include="ProjectTaskPersistenceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlDbContext.cs" />
+    <Compile Include="StakeholderPersistenceManager.cs" />
     <Compile Include="Utils\ParseUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +250,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706060853099_Added table for assignees of Tasks.resx">
       <DependentUpon>201706060853099_Added table for assignees of Tasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706080924421_Added tables for ProjectCharter and Stakeholder.resx">
+      <DependentUpon>201706080924421_Added tables for ProjectCharter and Stakeholder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706090844108_Added tables for ProjectCharter and Stakeholders.resx">
+      <DependentUpon>201706090844108_Added tables for ProjectCharter and Stakeholders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706101439126_Code field removed from project charter table.resx">
+      <DependentUpon>201706101439126_Code field removed from project charter table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

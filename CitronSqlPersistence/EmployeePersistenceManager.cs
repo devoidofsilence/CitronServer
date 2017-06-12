@@ -39,6 +39,11 @@ namespace CitronSqlPersistence
         public string parentTaskCode = null;
         public string projectCode = null;
         public string responsibleEmployeeCode = null;
+
+        public int? projectCharterQuestionHeaderID = null;
+        public int? projectCharterQuestionID = null;
+
+        public string projectCharterQuestionCode = null;
     }
 
     public class EmployeePersistenceManager : IEmployeePersistenceManager

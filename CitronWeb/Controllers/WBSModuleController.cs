@@ -1,6 +1,7 @@
 ﻿using CitronAppCore.DomainEntities;
 using CitronAppCore.DomainManagers;
 using CitronWeb.HttpResults;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,14 @@ namespace CitronWeb.Controllers
     {
         IProjectManager _projectManager;
         IProjectTaskManager _projectTaskManager;
-        public WBSModuleController(IProjectManager projectManager, IProjectTaskManager projectTaskManager)
+        IProjectCharterQuestionManager _projectCharterQuestionManager;
+        IProjectCharterManager _projectCharterManager;
+        public WBSModuleController(IProjectManager projectManager, IProjectTaskManager projectTaskManager, IProjectCharterQuestionManager projectCharterQuestionManager,  IProjectCharterManager projectCharterManager)
         {
             _projectManager = projectManager;
             _projectTaskManager = projectTaskManager;
+            _projectCharterQuestionManager = projectCharterQuestionManager;
+            _projectCharterManager = projectCharterManager;
         }
 
         [HttpPost]
@@ -119,6 +124,51 @@ namespace CitronWeb.Controllers
                 return _projectTaskManager.GetProjectTaskDetail(code);
             }
             return new ErrorResult() { Reason = "" };
+        }
+
+        [HttpGet]
+        [Route("api/WBSModule/GetProjectCharterDetail/{code}")]
+        public object GetProjectCharterDetail(string code)
+        {
+            if (code != null)
+            {
+                return _projectCharterManager.GetProjectCharterDetail(code);
+            }
+            return new ErrorResult() { Reason = "" };
+        }
+
+        public object GetProjectCharterQuestions()
+        {
+            return _projectCharterQuestionManager.GetProjectCharterQuestions(null);
+
+        }
+
+        [HttpPost]
+        public object AddProjectCharter([FromBody] ProjectCharter projectCharter)
+        {
+            try
+            {
+                _projectCharterManager.CreateProjectCharter(projectCharter);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult() { Reason = ex.Message };
+            }
+            return new SuccessResult() { Message = "Project Charter added" };
+        }
+
+        [HttpPost]
+        public object UpdateProjectCharter([FromBody] ProjectCharter projectCharter)
+        {
+            try
+            {
+                _projectCharterManager.UpdateProjectCharter(projectCharter);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult() { Reason = ex.Message };
+            }
+            return new SuccessResult() { Message = "Project Charter added" };
         }
     }
 }

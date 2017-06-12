@@ -92,6 +92,11 @@ namespace CitronWeb
             builder.RegisterType<ProjectTaskManager>()
                    .As<IProjectTaskManager>()
                    .UsingConstructor(typeof(IProjectTaskPersistenceManager), typeof(IProjectTaskAssignedEmployeesPersistenceManager));
+            builder.RegisterInstance(new ProjectCharterQuestionPersistenceManager())
+                   .As<IProjectCharterQuestionPersistenceManager>();
+            builder.RegisterType<ProjectCharterQuestionManager>()
+                   .As<IProjectCharterQuestionManager>()
+                   .UsingConstructor(typeof(IProjectCharterQuestionPersistenceManager));
             builder.RegisterType<AllowanceManager>()
                    .As<IAllowanceManager>()
                    .UsingConstructor(typeof(IAllowancePersistenceManager));
@@ -110,6 +115,16 @@ namespace CitronWeb
             builder.RegisterType<MaritalStatusManager>()
                    .As<IMaritalStatusManager>()
                    .UsingConstructor(typeof(IMaritalStatusPersistenceManager));
+
+            builder.RegisterType<ProjectCharterManager>()
+                   .As<IProjectCharterManager>()
+                   .UsingConstructor(typeof(IProjectCharterPersistenceManager));
+            builder.RegisterInstance(new ProjectCharterPersistenceManager())
+                   .As<IProjectCharterPersistenceManager>();
+
+            builder.RegisterType<StakeholderManager>()
+                   .As<IStakeholderManager>()
+                   .UsingConstructor(typeof(IStakeholderPersistenceManager));
 
 
 
