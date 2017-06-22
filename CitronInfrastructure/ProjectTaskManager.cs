@@ -19,19 +19,22 @@ namespace CitronInfrastructure
             _projectTaskAssignedEmployeesPersistenceManager = projectTaskAssignedEmployeesPersistenceManager;
         }
 
-        public ProjectTask AddProjectTask(ProjectTask projectTask)
+        public ProjectTask[] AddProjectTask(ProjectTask[] projectTasks)
         {
-            var foundProjectTask = _projectTaskPersistenceManager.Find(projectTask.Code);
-            if (string.IsNullOrEmpty(foundProjectTask.Code))
+            foreach (var projectTask in projectTasks)
             {
-                _projectTaskPersistenceManager.Create(projectTask);
-                _projectTaskAssignedEmployeesPersistenceManager.Create(projectTask);
+                var foundProjectTask = _projectTaskPersistenceManager.Find(projectTask.Code);
+                if (string.IsNullOrEmpty(foundProjectTask.Code))
+                {
+                    _projectTaskPersistenceManager.Create(projectTask);
+                    _projectTaskAssignedEmployeesPersistenceManager.Create(projectTask);
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
             }
-            else
-            {
-                throw new NotImplementedException();
-            }
-            return projectTask;
+            return projectTasks;
         }
 
         public ProjectTask DeleteProjectTask(ProjectTask projectTask)
@@ -48,19 +51,22 @@ namespace CitronInfrastructure
             return projectTasksList;
         }
 
-        public ProjectTask UpdateProjectTask(ProjectTask projectTask)
+        public ProjectTask[] UpdateProjectTask(ProjectTask[] projectTasks)
         {
-            var foundProjectTask = _projectTaskPersistenceManager.Find(projectTask.Code);
-            if (!string.IsNullOrEmpty(foundProjectTask.Code))
+            foreach (var projectTask in projectTasks)
             {
-                _projectTaskPersistenceManager.Update(projectTask);
-                _projectTaskAssignedEmployeesPersistenceManager.Create(projectTask);
+                var foundProjectTask = _projectTaskPersistenceManager.Find(projectTask.Code);
+                if (!string.IsNullOrEmpty(foundProjectTask.Code))
+                {
+                    _projectTaskPersistenceManager.Update(projectTask);
+                    _projectTaskAssignedEmployeesPersistenceManager.Create(projectTask);
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
             }
-            else
-            {
-                throw new NotImplementedException();
-            }
-            return projectTask;
+            return projectTasks;
         }
 
         public ProjectTask GetProjectTaskDetail(string projectTaskCode)

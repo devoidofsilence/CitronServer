@@ -41,11 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllowanceManager.cs" />
+    <Compile Include="AssignStakeholderManager.cs" />
     <Compile Include="BloodGroupManager.cs" />
     <Compile Include="EmployeeManager.cs" />
     <Compile Include="Exceptions\EmployeeAlreadyExistsException.cs" />
     <Compile Include="Exceptions\EmployeeNotFoundException.cs" />
     <Compile Include="MaritalStatusManager.cs" />
+    <Compile Include="PersistenceManagers\IAssignStakeholderPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IStakeholderPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IProjectAssignedEmployeesPersistenceManager.cs" />
     <Compile Include="PersistenceManagers\IProjectCharterPersistenceManager.cs" />

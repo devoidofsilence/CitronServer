@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainEntities\Allowance.cs" />
+    <Compile Include="DomainEntities\AssignStakeholder.cs" />
     <Compile Include="DomainEntities\BloodGroup.cs" />
     <Compile Include="DomainEntities\Department.cs" />
     <Compile Include="DomainEntities\Employee.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="DomainEntities\ProjectTask.cs" />
     <Compile Include="DomainEntities\Stakeholder.cs" />
     <Compile Include="DomainManagers\IAllowanceManager.cs" />
+    <Compile Include="DomainManagers\IAssignStakeholderManager.cs" />
     <Compile Include="DomainManagers\IBloodGroupManager.cs" />
     <Compile Include="DomainManagers\IEmployeeManager.cs" />
     <Compile Include="DomainManagers\IJobDepartmentManager.cs" />

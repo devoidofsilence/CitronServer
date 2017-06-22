@@ -252,13 +252,14 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="static\css\app.f2dad96731e15d6c7d1adbc39900f651.css" />
-    <Content Include="static\js\app.3a879d671c37d6575e4a.js" />
+    <Content Include="static\css\stylesheet.470e2a16c10525d7b7a4d1516ef0593d.css" />
+    <Content Include="static\js\app.34150ddf98cd1d00be32.js" />
     <Content Include="static\js\jquery-ui.js" />
     <Content Include="static\js\jquery.simpler-sidebar.min.js" />
     <Content Include="static\js\main-sidebar-right-top.js" />
-    <Content Include="static\js\manifest.b917227d66d2600926cf.js" />
-    <Content Include="static\js\vendor.5019b22ae2a0eb7f7f32.js" />
+    <Content Include="static\js\manifest.009edd747ad4bd9894d8.js" />
+    <Content Include="static\js\stylesheet.fad1556f9402b92b3188.js" />
+    <Content Include="static\js\vendor.d3259c99a120dbc6b470.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -295,10 +296,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="static\css\app.f2dad96731e15d6c7d1adbc39900f651.css.map" />
-    <Content Include="static\js\app.3a879d671c37d6575e4a.js.map" />
-    <Content Include="static\js\manifest.b917227d66d2600926cf.js.map" />
-    <Content Include="static\js\vendor.5019b22ae2a0eb7f7f32.js.map" />
+    <Content Include="static\css\stylesheet.470e2a16c10525d7b7a4d1516ef0593d.css.map" />
+    <Content Include="static\js\app.34150ddf98cd1d00be32.js.map" />
+    <Content Include="static\js\manifest.009edd747ad4bd9894d8.js.map" />
+    <Content Include="static\js\stylesheet.fad1556f9402b92b3188.js.map" />
+    <Content Include="static\js\vendor.d3259c99a120dbc6b470.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

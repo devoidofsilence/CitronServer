@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllowancePersistenceManager.cs" />
+    <Compile Include="AssignStakeholderPersistenceManager.cs" />
     <Compile Include="BloodGroupPersistenceManager.cs" />
     <Compile Include="ConfigurationPersistenceEntities\AllowancePersistenceEntity.cs" />
     <Compile Include="ConfigurationPersistenceEntities\BloodGroupPersistenceEntity.cs" />
@@ -155,7 +156,24 @@
     <Compile Include="Migrations\201706101439126_Code field removed from project charter table.Designer.cs">
       <DependentUpon>201706101439126_Code field removed from project charter table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706131008036_modified tables for stakeholders.cs" />
+    <Compile Include="Migrations\201706131008036_modified tables for stakeholders.Designer.cs">
+      <DependentUpon>201706131008036_modified tables for stakeholders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706181540319_Something.cs" />
+    <Compile Include="Migrations\201706181540319_Something.Designer.cs">
+      <DependentUpon>201706181540319_Something.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706201028280_Added table for Assigning Stakeholder.cs" />
+    <Compile Include="Migrations\201706201028280_Added table for Assigning Stakeholder.Designer.cs">
+      <DependentUpon>201706201028280_Added table for Assigning Stakeholder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706210632205_Added Note field in Project Charter Questions.cs" />
+    <Compile Include="Migrations\201706210632205_Added Note field in Project Charter Questions.Designer.cs">
+      <DependentUpon>201706210632205_Added Note field in Project Charter Questions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="PersistenceEntities\AssignStakeholderPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\EmployeeAccountDetailPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\EmployeeAllowanceDetailPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\EmployeeJobDepartmentDetailPersistenceEntity.cs" />
@@ -259,6 +277,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706101439126_Code field removed from project charter table.resx">
       <DependentUpon>201706101439126_Code field removed from project charter table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706131008036_modified tables for stakeholders.resx">
+      <DependentUpon>201706131008036_modified tables for stakeholders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706181540319_Something.resx">
+      <DependentUpon>201706181540319_Something.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706201028280_Added table for Assigning Stakeholder.resx">
+      <DependentUpon>201706201028280_Added table for Assigning Stakeholder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706210632205_Added Note field in Project Charter Questions.resx">
+      <DependentUpon>201706210632205_Added Note field in Project Charter Questions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

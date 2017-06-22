@@ -24,8 +24,10 @@ namespace CitronSqlPersistence
                 Address = stakeholder.Address.NullIfEmptyString(),
                 Email = stakeholder.Email.NullIfEmptyString(),
                 Phone = stakeholder.Phone.NullIfEmptyString(),
-                OrganizationName = stakeholder.OrganizationName.NullIfEmptyString(),
-                JobPosition = stakeholder.JobPosition.NullIfEmptyString()
+                OrganizationName = stakeholder.Organization.NullIfEmptyString(),
+                JobPosition = stakeholder.JobPosition.NullIfEmptyString(),
+                Mobile = stakeholder.Mobile.NullIfEmptyString(),
+                Fax = stakeholder.Fax.NullIfEmptyString()
             };
 
             db.StakeholderPersistenceEntities.Add(stakeholderPersistenceEntity);
@@ -42,14 +44,47 @@ namespace CitronSqlPersistence
             return stakeholder;
         }
 
-        public Stakeholder Find(string id)
+        public Stakeholder Find(object id)
         {
-            throw new NotImplementedException();
+            var stakeholdersPersistenceEntity = db.StakeholderPersistenceEntities.FirstOrDefault(e => e.Code == (string)id);
+            Stakeholder stakeholder = new Stakeholder();
+            if (stakeholdersPersistenceEntity != null)
+            {
+                stakeholder.Code = stakeholdersPersistenceEntity.Code;
+                stakeholder.Name = stakeholdersPersistenceEntity.Name;
+                stakeholder.Address = stakeholdersPersistenceEntity.Address;
+                stakeholder.Email = stakeholdersPersistenceEntity.Email;
+                stakeholder.Fax = stakeholdersPersistenceEntity.Fax;
+                stakeholder.JobPosition = stakeholdersPersistenceEntity.JobPosition;
+                stakeholder.Organization = stakeholdersPersistenceEntity.OrganizationName;
+                stakeholder.Phone = stakeholdersPersistenceEntity.Phone;
+            }
+            return stakeholder;
         }
 
         public IList<Stakeholder> FindAll(Func<Stakeholder, bool> condition)
         {
-            throw new NotImplementedException();
+            IList<Stakeholder> stakeholders = new List<Stakeholder>();
+            var stakeholderPersistenceEntities = db.StakeholderPersistenceEntities;
+            if (stakeholderPersistenceEntities != null)
+            {
+                foreach (var item in stakeholderPersistenceEntities)
+                {
+                    stakeholders.Add(new Stakeholder
+                    {
+                        Code = item.Code,
+                        Name = item.Name,
+                        Organization = item.OrganizationName,
+                        JobPosition = item.JobPosition,
+                        Address = item.Address,
+                        Mobile = item.Mobile,
+                        Email = item.Email,
+                        Fax = item.Fax,
+                        Phone = item.Phone
+                    });
+                }
+            }
+            return stakeholders;
         }
 
         public Stakeholder Read(string identifier)
@@ -66,7 +101,9 @@ namespace CitronSqlPersistence
             stakeholderPersistenceEntity.Address = stakeholder.Address.NullIfEmptyString();
             stakeholderPersistenceEntity.Email = stakeholder.Email.NullIfEmptyString();
             stakeholderPersistenceEntity.Phone = stakeholder.Phone.NullIfEmptyString();
-            stakeholderPersistenceEntity.OrganizationName = stakeholder.OrganizationName.NullIfEmptyString();
+            stakeholderPersistenceEntity.OrganizationName = stakeholder.Organization.NullIfEmptyString();
+            stakeholderPersistenceEntity.Mobile = stakeholder.Mobile.NullIfEmptyString();
+            stakeholderPersistenceEntity.Fax = stakeholder.Fax.NullIfEmptyString();
             stakeholderPersistenceEntity.JobPosition = stakeholder.JobPosition.NullIfEmptyString();
 
             db.SaveChanges();

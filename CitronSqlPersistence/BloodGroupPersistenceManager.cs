@@ -21,7 +21,7 @@ namespace CitronSqlPersistence
             throw new NotImplementedException();
         }
 
-        public BloodGroup Find(string id)
+        public BloodGroup Find(object id)
         {
             throw new NotImplementedException();
         }

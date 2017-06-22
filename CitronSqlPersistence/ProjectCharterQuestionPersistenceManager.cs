@@ -21,7 +21,7 @@ namespace CitronSqlPersistence
             throw new NotImplementedException();
         }
 
-        public ProjectCharterQuestion Find(string id)
+        public ProjectCharterQuestion Find(object id)
         {
             throw new NotImplementedException();
         }
@@ -45,7 +45,8 @@ namespace CitronSqlPersistence
                         projectCharterQuestion.Add(new ProjectCharterQuestion {
                             HeaderCode = item.projectCharterQuestionHeaderEntity.Code,
                             Code = item.Code,
-                            Name = item.Name
+                            Name = item.Name,
+                            Note = item.Note
                         });
                     }
                 }

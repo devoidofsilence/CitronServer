@@ -52,11 +52,11 @@ namespace CitronSqlPersistence
             return project;
         }
 
-        public Project Find(string code)
+        public Project Find(object code)
         {
             var dh = new TempDataHolder();
-            var projectPersistenceEntity = db.ProjectPersistenceEntities.FirstOrDefault(e => e.Code == code);
-            var aggregatedTable = (from projectTable in db.ProjectPersistenceEntities.Where(e => e.Code == code)
+            var projectPersistenceEntity = db.ProjectPersistenceEntities.FirstOrDefault(e => e.Code == (string)code);
+            var aggregatedTable = (from projectTable in db.ProjectPersistenceEntities.Where(e => e.Code == (string)code)
                                    join projectAssignedEmployeesTable in db.ProjectAssignedEmployeesPersistenceEntities on projectTable.ID equals projectAssignedEmployeesTable.ProjectID into ppaeJoin
                                    from ppae in ppaeJoin.DefaultIfEmpty()
                                    join employeesTable in db.EmployeePersistenceEntities on ppae.EmployeeID equals employeesTable.ID into ppaeeJoin
@@ -77,6 +77,7 @@ namespace CitronSqlPersistence
                     var assignedEmployeesCollection = aggregatedTable.AsEnumerable().Select(e => e.AssignedEmployees);
                     var tableEmployeesAssigned = assignedEmployeesCollection.ToList();
                     project.AssignedEmployees = new List<string>();
+                    project.AssignedEmployeesWithName = new List<EmployeeCollection>();
                     if (aggregatedTable.FirstOrDefault().AssignedEmployees != null)
                     {
                         if (assignedEmployeesCollection != null && tableEmployeesAssigned.Count != 0)
@@ -84,6 +85,10 @@ namespace CitronSqlPersistence
                             foreach (var item in assignedEmployeesCollection)
                             {
                                 project.AssignedEmployees.Add(item.employeePersistenceEntity.Code);
+                                project.AssignedEmployeesWithName.Add(new EmployeeCollection {
+                                    Code = item.employeePersistenceEntity.Code,
+                                    Name = item.employeePersistenceEntity.Name
+                                });
                             }
                         }
                     }

@@ -188,10 +188,10 @@ namespace CitronSqlPersistence
             return employee;
         }
 
-        public Employee Find(string code)
+        public Employee Find(object code)
         {
             var dh = new TempDataHolder();
-            var employeePersistenceEntity = db.EmployeePersistenceEntities.FirstOrDefault(e => e.Code == code);
+            var employeePersistenceEntity = db.EmployeePersistenceEntities.FirstOrDefault(e => e.Code == (string)code);
 
             Employee employee = new Employee();
             if (employeePersistenceEntity != null)

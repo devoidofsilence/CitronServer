@@ -19,5 +19,6 @@ namespace CitronSqlPersistence.ConfigurationPersistenceEntities
         public int HeaderID { get; set; }
         public ProjectCharterQuestionHeaderPersistenceEntity projectCharterQuestionHeaderEntity { get; set; }
         public string Name { get; set; }
+        public string Note { get; set; }
     }
 }

@@ -22,5 +22,7 @@ namespace CitronSqlPersistence.PersistenceEntities
         public string Phone { get; set; }
         public string OrganizationName { get; set; }
         public string JobPosition { get; set; }
+        public string Mobile { get; set; }
+        public string Fax { get; set; }
     }
 }

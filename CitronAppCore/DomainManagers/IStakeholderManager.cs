@@ -9,9 +9,9 @@ namespace CitronAppCore.DomainManagers
 {
     public interface IStakeholderManager
     {
-        Stakeholder CreateStakeholder(Stakeholder stakeholder);
+        List<Stakeholder> CreateStakeholder(List<Stakeholder> stakeholder);
 
-        Stakeholder UpdateStakeholder(Stakeholder stakeholder);
+        List<Stakeholder> UpdateStakeholder(List<Stakeholder> stakeholder);
 
         Stakeholder DeleteStakeholder(Stakeholder stakeholder);
 

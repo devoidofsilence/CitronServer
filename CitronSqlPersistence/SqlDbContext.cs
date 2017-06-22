@@ -38,6 +38,7 @@ namespace CitronSqlPersistence
         public DbSet<ProjectCharterPersistenceEntity> ProjectCharterPersistenceEntities { get; set; }
 
         public DbSet<StakeholderPersistenceEntity> StakeholderPersistenceEntities { get; set; }
+        public DbSet<AssignStakeholderPersistenceEntity> AssignStakeholderPersistenceEntities { get; set; }
         public SqlDbContext() : base("ConnectionString")
         {
 

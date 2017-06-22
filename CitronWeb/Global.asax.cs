@@ -61,6 +61,11 @@ namespace CitronWeb
                    .As<IEmployeeAllowanceDetailPersistenceManager>();
             builder.RegisterInstance(new EmployeeJobDepartmentDetailPersistenceManager())
                    .As<IEmployeeJobDepartmentDetailPersistenceManager>();
+            builder.RegisterType<EmployeeManager>()
+                   .As<IEmployeeManager>()
+                   .UsingConstructor(typeof(IEmployeePersistenceManager), typeof(IEmployeeJobDetailPersistenceManager), typeof(IEmployeeAccountDetailPersistenceManager), typeof(IEmployeeSalaryHistoryPersistenceManager), typeof(IEmployeeJobHistoryPersistenceManager), typeof(IEmployeeAllowanceDetailPersistenceManager), typeof(IEmployeeJobDepartmentDetailPersistenceManager), typeof(ILeavePersistenceManager));
+
+
             builder.RegisterInstance(new LeavePersistenceManager())
                    .As<ILeavePersistenceManager>();
             builder.RegisterInstance(new AllowancePersistenceManager())
@@ -75,6 +80,8 @@ namespace CitronWeb
                    .As<IJobDepartmentPersistenceManager>();
             builder.RegisterInstance(new MaritalStatusPersistenceManager())
                    .As<IMaritalStatusPersistenceManager>();
+
+
             builder.RegisterInstance(new ProjectPersistenceManager())
                    .As<IProjectPersistenceManager>();
             builder.RegisterInstance(new ProjectTaskPersistenceManager())
@@ -83,9 +90,7 @@ namespace CitronWeb
                    .As<IProjectAssignedEmployeesPersistenceManager>();
             builder.RegisterInstance(new ProjectTaskAssignedEmployeesPersistenceManager())
                   .As<IProjectTaskAssignedEmployeesPersistenceManager>();
-            builder.RegisterType<EmployeeManager>()
-                   .As<IEmployeeManager>()
-                   .UsingConstructor(typeof(IEmployeePersistenceManager), typeof(IEmployeeJobDetailPersistenceManager), typeof(IEmployeeAccountDetailPersistenceManager), typeof(IEmployeeSalaryHistoryPersistenceManager), typeof(IEmployeeJobHistoryPersistenceManager), typeof(IEmployeeAllowanceDetailPersistenceManager), typeof(IEmployeeJobDepartmentDetailPersistenceManager), typeof(ILeavePersistenceManager));
+            //
             builder.RegisterType<ProjectManager>()
                    .As<IProjectManager>()
                    .UsingConstructor(typeof(IProjectPersistenceManager), typeof(IProjectAssignedEmployeesPersistenceManager));
@@ -125,8 +130,14 @@ namespace CitronWeb
             builder.RegisterType<StakeholderManager>()
                    .As<IStakeholderManager>()
                    .UsingConstructor(typeof(IStakeholderPersistenceManager));
+            builder.RegisterInstance(new StakeholderPersistenceManager())
+                   .As<IStakeholderPersistenceManager>();
 
-
+            builder.RegisterType<AssignStakeholderManager>()
+                   .As<IAssignStakeholderManager>()
+                   .UsingConstructor(typeof(IAssignStakeholderPersistenceManager));
+            builder.RegisterInstance(new AssignStakeholderPersistenceManager())
+                   .As<IAssignStakeholderPersistenceManager>();
 
 
             var container = builder.Build();

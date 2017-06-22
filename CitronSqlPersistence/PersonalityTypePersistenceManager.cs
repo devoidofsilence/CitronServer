@@ -21,7 +21,7 @@ namespace CitronSqlPersistence
             throw new NotImplementedException();
         }
 
-        public PersonalityType Find(string id)
+        public PersonalityType Find(object id)
         {
             throw new NotImplementedException();
         }

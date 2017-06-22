@@ -21,7 +21,7 @@ namespace CitronSqlPersistence
             throw new NotImplementedException();
         }
 
-        public MaritalStatus Find(string id)
+        public MaritalStatus Find(object id)
         {
             throw new NotImplementedException();
         }

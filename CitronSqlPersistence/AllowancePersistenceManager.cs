@@ -21,7 +21,7 @@ namespace CitronSqlPersistence
             throw new NotImplementedException();
         }
 
-        public Allowance Find(string id)
+        public Allowance Find(object id)
         {
             throw new NotImplementedException();
         }

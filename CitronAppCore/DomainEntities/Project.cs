@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CitronAppCore.DomainEntities
 {
-    public class Project: IDomainEntity
+    public class Project : IDomainEntity
     {
         public string Code { get; set; }
         public string Name { get; set; }
@@ -14,5 +14,11 @@ namespace CitronAppCore.DomainEntities
         public string Status { get; set; }
         public int PercentageCompleted { get; set; }
         public IList<string> AssignedEmployees { get; set; }
+        public List<EmployeeCollection> AssignedEmployeesWithName { get; set; }
+    }
+    public class EmployeeCollection
+    {
+        public string Code { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -16,12 +16,16 @@ namespace CitronWeb.Controllers
         IProjectTaskManager _projectTaskManager;
         IProjectCharterQuestionManager _projectCharterQuestionManager;
         IProjectCharterManager _projectCharterManager;
-        public WBSModuleController(IProjectManager projectManager, IProjectTaskManager projectTaskManager, IProjectCharterQuestionManager projectCharterQuestionManager,  IProjectCharterManager projectCharterManager)
+        IStakeholderManager _stakeholderManager;
+        IAssignStakeholderManager _assignStakeholderManager;
+        public WBSModuleController(IProjectManager projectManager, IProjectTaskManager projectTaskManager, IProjectCharterQuestionManager projectCharterQuestionManager, IProjectCharterManager projectCharterManager, IStakeholderManager stakeholderManager, IAssignStakeholderManager assignStakeholderManager)
         {
             _projectManager = projectManager;
             _projectTaskManager = projectTaskManager;
             _projectCharterQuestionManager = projectCharterQuestionManager;
             _projectCharterManager = projectCharterManager;
+            _stakeholderManager = stakeholderManager;
+            _assignStakeholderManager = assignStakeholderManager;
         }
 
         [HttpPost]
@@ -59,7 +63,7 @@ namespace CitronWeb.Controllers
         }
 
         [HttpPost]
-        public object AddProjectTask([FromBody] ProjectTask projectTask)
+        public object AddProjectTask([FromBody] ProjectTask[] projectTask)
         {
             try
             {
@@ -73,7 +77,7 @@ namespace CitronWeb.Controllers
         }
 
         [HttpPost]
-        public object UpdateProjectTaskDetail([FromBody] ProjectTask projectTask)
+        public object UpdateProjectTaskDetail([FromBody] ProjectTask[] projectTask)
         {
             try
             {
@@ -108,7 +112,7 @@ namespace CitronWeb.Controllers
             }
             return new ErrorResult() { Reason = "" };
         }
-        
+
         public object GetProjectTasks()
         {
             return _projectTaskManager.GetProjectTasks(null);
@@ -169,6 +173,95 @@ namespace CitronWeb.Controllers
                 return new ErrorResult() { Reason = ex.Message };
             }
             return new SuccessResult() { Message = "Project Charter added" };
+        }
+
+        [HttpPost]
+        public object AddStakeholder([FromBody] List<Stakeholder> stakeholders)
+        {
+            try
+            {
+                _stakeholderManager.CreateStakeholder(stakeholders);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult() { Reason = ex.Message };
+            }
+            return new SuccessResult() { Message = "Stakeholder added" };
+        }
+
+        [HttpPost]
+        public object UpdateStakeholder([FromBody] List<Stakeholder> stakeholders)
+        {
+            try
+            {
+                _stakeholderManager.UpdateStakeholder(stakeholders);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult() { Reason = ex.Message };
+            }
+            return new SuccessResult() { Message = "Stakeholder added" };
+        }
+
+        [HttpPost]
+        public void DeleteStakeholder([FromBody] Stakeholder stakeholder)
+        {
+            _stakeholderManager.DeleteStakeholder(stakeholder);
+        }
+
+        [HttpGet]
+        [Route("api/WBSModule/GetStakeholders")]
+        public object GetStakeholders()
+        {
+            return _stakeholderManager.GetStakeholders(null);
+        }
+
+        [HttpGet]
+        [Route("api/WBSModule/GetEmployeesInsideProject/{code}")]
+        public object GetEmployeesInsideProject(string code)
+        {
+            return _projectManager.GetProjectAssignedEmployees(code);
+        }
+
+        [HttpPost]
+        public object AssignStakeholders([FromBody] AssignStakeholder[] stakeholders)
+        {
+            try
+            {
+                _assignStakeholderManager.AssignStakeholder(stakeholders);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult() { Reason = ex.Message };
+            }
+            return new SuccessResult() { Message = "Stakeholders assigned" };
+        }
+
+        [HttpPost]
+        public object UpdateAssignedStakeholders([FromBody] AssignStakeholder[] stakeholders)
+        {
+            try
+            {
+                _assignStakeholderManager.UpdateAssignedStakeholder(stakeholders);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult() { Reason = ex.Message };
+            }
+            return new SuccessResult() { Message = "Stakeholders assigned" };
+        }
+
+        [HttpPost]
+        public void DeleteAssignedStakeholder([FromBody] AssignStakeholder stakeholder)
+        {
+            _assignStakeholderManager.DeleteAssignedStakeholder(stakeholder);
+        }
+
+        [HttpGet]
+        [Route("api/WBSModule/GetAssignedStakeholders")]
+        public object GetAssignedStakeholders()
+        {
+            return _assignStakeholderManager.GetAssignedStakeholders(null);
         }
     }
 }

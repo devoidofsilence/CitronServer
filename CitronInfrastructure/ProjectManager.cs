@@ -73,5 +73,16 @@ namespace CitronInfrastructure
 
             return project;
         }
+
+        public object GetProjectAssignedEmployees(string projectCode)
+        {
+            Project project = new Project();
+            if (!string.IsNullOrEmpty(projectCode))
+            {
+                project = _projectPersistenceManager.Find(projectCode);
+            }
+
+            return project.AssignedEmployeesWithName;
+        }
     }
 }

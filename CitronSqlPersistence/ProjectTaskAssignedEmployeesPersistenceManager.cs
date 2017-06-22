@@ -53,7 +53,7 @@ namespace CitronSqlPersistence
             return projectTask;
         }
 
-        public ProjectTask Find(string id)
+        public ProjectTask Find(object id)
         {
             throw new NotImplementedException();
         }

@@ -26,7 +26,7 @@ namespace CitronSqlPersistence
             throw new NotImplementedException();
         }
 
-        public Designation Find(string id)
+        public Designation Find(object id)
         {
             throw new NotImplementedException();
         }

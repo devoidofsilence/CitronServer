@@ -42,7 +42,7 @@ namespace CitronSqlPersistence
             throw new NotImplementedException();
         }
 
-        public Employee Find(string id)
+        public Employee Find(object id)
         {
             throw new NotImplementedException();
         }

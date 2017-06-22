@@ -22,7 +22,7 @@ namespace CitronSqlPersistence
             throw new NotImplementedException();
         }
 
-        public Department Find(string id)
+        public Department Find(object id)
         {
             throw new NotImplementedException();
         }

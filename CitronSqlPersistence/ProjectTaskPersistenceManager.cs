@@ -111,11 +111,11 @@ namespace CitronSqlPersistence
             return projectTask;
         }
 
-        public ProjectTask Find(string code)
+        public ProjectTask Find(object code)
         {
             var dh = new TempDataHolder();
             //var projectTaskPersistenceEntity = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.Code == code);
-            var aggregatedTable = (from projectTaskTable in db.ProjectTaskPersistenceEntities.Where(e => e.Code == code)
+            var aggregatedTable = (from projectTaskTable in db.ProjectTaskPersistenceEntities.Where(e => e.Code == (string)code)
                                    join projectTaskAssignedEmployeesTable in db.ProjectTaskAssignedEmployeesPersistenceEntities on projectTaskTable.ID equals projectTaskAssignedEmployeesTable.ProjectTaskID into ppaeJoin
                                    from ppae in ppaeJoin.DefaultIfEmpty()
                                    join employeesTable in db.EmployeePersistenceEntities on ppae.EmployeeID equals employeesTable.ID into ppaeeJoin

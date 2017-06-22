@@ -16,18 +16,21 @@ namespace CitronInfrastructure
         {
             _stakeholderPersistenceManager = stakeholderPersistenceManager;
         }
-        public Stakeholder CreateStakeholder(Stakeholder stakeholder)
+        public List<Stakeholder> CreateStakeholder(List<Stakeholder> stakeholders)
         {
-            var foundStakeholder = _stakeholderPersistenceManager.Find(stakeholder.Code);
-            if (string.IsNullOrEmpty(foundStakeholder.Code))
+            foreach (var stakeholder in stakeholders)
             {
-                _stakeholderPersistenceManager.Create(stakeholder);
+                var foundStakeholder = _stakeholderPersistenceManager.Find(stakeholder.Code);
+                if (string.IsNullOrEmpty(foundStakeholder.Code))
+                {
+                    _stakeholderPersistenceManager.Create(stakeholder);
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
             }
-            else
-            {
-                throw new NotImplementedException();
-            }
-            return stakeholder;
+            return stakeholders;
         }
 
         public Stakeholder DeleteStakeholder(Stakeholder stakeholder)
@@ -43,18 +46,21 @@ namespace CitronInfrastructure
             return stakeholdersList;
         }
 
-        public Stakeholder UpdateStakeholder(Stakeholder stakeholder)
+        public List<Stakeholder> UpdateStakeholder(List<Stakeholder> stakeholders)
         {
-            var foundStakeholder = _stakeholderPersistenceManager.Find(stakeholder.Code);
-            if (!string.IsNullOrEmpty(foundStakeholder.Code))
+            foreach (var stakeholder in stakeholders)
             {
-                _stakeholderPersistenceManager.Create(stakeholder);
+                var foundStakeholder = _stakeholderPersistenceManager.Find(stakeholder.Code);
+                if (!string.IsNullOrEmpty(foundStakeholder.Code))
+                {
+                    _stakeholderPersistenceManager.Update(stakeholder);
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
             }
-            else
-            {
-                throw new NotImplementedException();
-            }
-            return stakeholder;
+            return stakeholders;
         }
     }
 }

@@ -53,7 +53,7 @@ namespace CitronSqlPersistence
             return project;
         }
 
-        public Project Find(string id)
+        public Project Find(object id)
         {
             throw new NotImplementedException();
         }

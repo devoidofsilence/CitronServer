@@ -19,5 +19,6 @@ namespace CitronAppCore.DomainEntities
         public string Code { get; set; }
         public string Name { get; set; }
         public string Answer { get; set; }
+        public string Note { get; set; }
     }
 }

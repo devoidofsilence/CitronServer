@@ -14,5 +14,6 @@ namespace CitronAppCore.DomainManagers
         Project DeleteProject(Project project);
         Project GetProjectDetail(string code);
         IList<Project> GetProjects(Func<Project, bool> condition);
+        object GetProjectAssignedEmployees(string code);
     }
 }

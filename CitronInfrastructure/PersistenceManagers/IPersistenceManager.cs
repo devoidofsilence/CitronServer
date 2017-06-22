@@ -9,7 +9,7 @@ namespace CitronInfrastructure.PersistenceManagers
 {
     public interface IPersistenceManager<T> where T : IDomainEntity
     {
-        T Find(string id);
+        T Find(object id);
         IList<T> FindAll(Func<T, bool> condition);
         T Create(T domainEntity);
         T Read(string identifier);

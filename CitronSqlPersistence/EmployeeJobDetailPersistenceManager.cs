@@ -74,12 +74,12 @@ namespace CitronSqlPersistence
             return employee;
         }
 
-        public Employee Find(string code)
+        public Employee Find(object code)
         {
             var dh = new TempDataHolder();
             Employee employee = new Employee();
 
-            var aggregatedTable = (from empTable in db.EmployeePersistenceEntities.Where(e => e.Code == code)
+            var aggregatedTable = (from empTable in db.EmployeePersistenceEntities.Where(e => e.Code == (string)code)
                                    join employeeJobDetailTable in db.EmployeeJobDetailPersistenceEntities on empTable.ID equals employeeJobDetailTable.EmployeeID into eejdJoin
                                    from eejd in eejdJoin.DefaultIfEmpty()
                                    join employeeJobDepartmentDetailTable in db.EmployeeJobDepartmentDetailPersistenceEntities on eejd.EmployeeID equals employeeJobDepartmentDetailTable.EmployeeID into ejddeejdJoin
@@ -99,7 +99,7 @@ namespace CitronSqlPersistence
                 {
                     dh.byteString = null;
                     var aggEmployeeTblValue = aggregatedTable.FirstOrDefault().Employee;
-                    employee.Code = code;
+                    employee.Code = (string)code;
                     employee.Name = aggEmployeeTblValue.Name;
                     if (aggEmployeeTblValue.Photo != null)
                     {

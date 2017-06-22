@@ -58,7 +58,7 @@ namespace CitronSqlPersistence
             return employee;
         }
 
-        public Employee Find(string id)
+        public Employee Find(object id)
         {
             throw new NotImplementedException();
         }
