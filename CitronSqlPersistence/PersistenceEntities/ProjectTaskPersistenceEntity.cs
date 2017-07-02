@@ -25,6 +25,7 @@ namespace CitronSqlPersistence.PersistenceEntities
         [ForeignKey("responsibleEmployeePersistenceEntity")]
         public int? ResponsibleEmployeeID { get; set; }
         public EmployeePersistenceEntity responsibleEmployeePersistenceEntity { get; set; }
+        public List<ProjectTaskAssignedEmployeesPersistenceEntity> AssignedEmps { get; set; }
         //Maybe other accountable employees too, to be implemented later
         public int OptimisticTime { get; set; }
         public int PessimisticTime { get; set; }

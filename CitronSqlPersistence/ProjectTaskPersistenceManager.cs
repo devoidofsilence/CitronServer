@@ -116,7 +116,7 @@ namespace CitronSqlPersistence
             var dh = new TempDataHolder();
             //var projectTaskPersistenceEntity = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.Code == code);
             var aggregatedTable = (from projectTaskTable in db.ProjectTaskPersistenceEntities.Where(e => e.Code == (string)code)
-                                   join projectTaskAssignedEmployeesTable in db.ProjectTaskAssignedEmployeesPersistenceEntities on projectTaskTable.ID equals projectTaskAssignedEmployeesTable.ProjectTaskID into ppaeJoin
+                                   join projectTaskAssignedEmployeesTable in db.ProjectTaskAssignedEmployeesPersistenceEntities on projectTaskTable.ID equals projectTaskAssignedEmployeesTable.ProjectTskID into ppaeJoin
                                    from ppae in ppaeJoin.DefaultIfEmpty()
                                    join employeesTable in db.EmployeePersistenceEntities on ppae.EmployeeID equals employeesTable.ID into ppaeeJoin
                                    from ppaee in ppaeeJoin.DefaultIfEmpty()
@@ -185,38 +185,68 @@ namespace CitronSqlPersistence
 
         public IList<ProjectTask> FindAll(Func<ProjectTask, bool> condition)
         {
+            db = new SqlDbContext();
             var dh = new TempDataHolder();
             IList<ProjectTask> projectTasksList = new List<ProjectTask>();
 
             var aggregatedTable = (from mainProjectTaskTable in db.ProjectTaskPersistenceEntities
-                                   join parentProjectTaskTable in db.ProjectTaskPersistenceEntities on mainProjectTaskTable.ParentProjectTaskID equals parentProjectTaskTable.ID into ptJoin
-                                   from pt in ptJoin.DefaultIfEmpty()
+                                   //join parentProjectTaskTable in db.ProjectTaskPersistenceEntities on mainProjectTaskTable.ParentProjectTaskID equals parentProjectTaskTable.ID into ptJoin
+                                   //from pt in ptJoin.DefaultIfEmpty()
                                    join projectTable in db.ProjectPersistenceEntities on mainProjectTaskTable.ProjectID equals projectTable.ID into repJoin
                                    from rep in repJoin.DefaultIfEmpty()
                                    join responsibleEmployeeTable in db.EmployeePersistenceEntities on mainProjectTaskTable.ResponsibleEmployeeID equals responsibleEmployeeTable.ID into reJoin
                                    from re in reJoin.DefaultIfEmpty()
-                                   select new { MainProjectTask = mainProjectTaskTable, ParentTask = pt, ResponsibleEmployee = re, ProjectTable = rep });
+                                   join projectTaskAssignedEmployeesTable in db.ProjectTaskAssignedEmployeesPersistenceEntities on mainProjectTaskTable.ID equals projectTaskAssignedEmployeesTable.ProjectTskID into ppaeJoin
+                                   from ppae in ppaeJoin.DefaultIfEmpty()
+                                   join employeesTable in db.EmployeePersistenceEntities on ppae.EmployeeID equals employeesTable.ID into ppaeeJoin
+                                   from ppaee in ppaeeJoin.DefaultIfEmpty()
+                                   select new { MainProjectTask = mainProjectTaskTable, ResponsibleEmployee = re, ProjectTable = rep, AssignedEmployees = ppae, EmployeesTable = ppaee });
 
-            var tt = aggregatedTable.ToList();
-
-            foreach (var projectTaskPersistenceEntity in aggregatedTable)
+            var tt = aggregatedTable.DistinctBy(x => x.MainProjectTask.Code).ToList();
+            int counter = 0;
+            foreach (var projectTaskPersistenceEntity in tt)
             {
-                projectTasksList.Add(new ProjectTask()
+                ProjectTask projectTask = new ProjectTask();
+                var assignedEmployeesCollection = tt.AsEnumerable().Select(e => e.MainProjectTask.AssignedEmps);
+                var tableEmployeesAssigned = assignedEmployeesCollection.ToList();
+                projectTask.Code = projectTaskPersistenceEntity.MainProjectTask.Code;
+                projectTask.Name = projectTaskPersistenceEntity.MainProjectTask.Name;
+                projectTask.Description = projectTaskPersistenceEntity.MainProjectTask.Description;
+                projectTask.ProjectCode = projectTaskPersistenceEntity.ProjectTable == null ? null : projectTaskPersistenceEntity.ProjectTable.Code;
+                projectTask.ProjectName = projectTaskPersistenceEntity.ProjectTable == null ? null : projectTaskPersistenceEntity.ProjectTable.Name;
+                projectTask.ResponsibleEmployeeCode = projectTaskPersistenceEntity.ResponsibleEmployee == null ? "" : projectTaskPersistenceEntity.ResponsibleEmployee.Code;
+                projectTask.ResponsibleEmployeeName = projectTaskPersistenceEntity.ResponsibleEmployee == null ? null : projectTaskPersistenceEntity.ResponsibleEmployee.Name;
+                projectTask.ExpectedTime = projectTaskPersistenceEntity.MainProjectTask.ExpectedTime;
+                projectTask.OptimisticTime = projectTaskPersistenceEntity.MainProjectTask.OptimisticTime;
+                projectTask.PessimisticTime = projectTaskPersistenceEntity.MainProjectTask.PessimisticTime;
+                projectTask.NormalTime = projectTaskPersistenceEntity.MainProjectTask.NormalTime;
+                if (tt.FirstOrDefault().AssignedEmployees != null)
                 {
-                    Code = projectTaskPersistenceEntity.MainProjectTask.Code,
-                    Name = projectTaskPersistenceEntity.MainProjectTask.Name,
-                    Description = projectTaskPersistenceEntity.MainProjectTask.Description,
-                    ProjectCode = projectTaskPersistenceEntity.ProjectTable == null ? null : projectTaskPersistenceEntity.ProjectTable.Code,
-                    ProjectName = projectTaskPersistenceEntity.ProjectTable == null ? null : projectTaskPersistenceEntity.ProjectTable.Name,
-                    ParentTaskCode = projectTaskPersistenceEntity.ParentTask == null ? null : projectTaskPersistenceEntity.ParentTask.Code,
-                    ParentTaskName = projectTaskPersistenceEntity.ParentTask == null ? null : projectTaskPersistenceEntity.ParentTask.Name,
-                    ResponsibleEmployeeCode = projectTaskPersistenceEntity.ResponsibleEmployee == null ? null : projectTaskPersistenceEntity.ResponsibleEmployee.Code,
-                    ResponsibleEmployeeName = projectTaskPersistenceEntity.ResponsibleEmployee == null ? null : projectTaskPersistenceEntity.ResponsibleEmployee.Name,
-                    ExpectedTime = projectTaskPersistenceEntity.MainProjectTask.ExpectedTime,
-                    OptimisticTime = projectTaskPersistenceEntity.MainProjectTask.OptimisticTime,
-                    PessimisticTime = projectTaskPersistenceEntity.MainProjectTask.PessimisticTime,
-                    NormalTime = projectTaskPersistenceEntity.MainProjectTask.NormalTime
-                });
+                    projectTask.AssignedEmployees = new List<string>();
+                    if (assignedEmployeesCollection != null && tableEmployeesAssigned.Count != 0)
+                    {
+                        if (tableEmployeesAssigned[counter] != null)
+                        {
+                            var assignedEmployeesTable = tableEmployeesAssigned[counter].DistinctBy(e => e.EmployeeID).ToList();
+                            foreach (var item in assignedEmployeesTable)
+                            {
+                                projectTask.AssignedEmployees.Add(item.employeePersistenceEntity.Code);
+                            }
+                            counter++;
+                        }
+                    }
+                }
+                var parentTask = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.ID == projectTaskPersistenceEntity.MainProjectTask.ParentProjectTaskID);
+                if (parentTask != null)
+                {
+                    projectTask.ParentTaskCode = parentTask.Code == null ? "" : parentTask.Code;
+                    projectTask.ParentTaskName = parentTask.Name == null ? "" : parentTask.Name;
+                }
+                else
+                {
+                    projectTask.ParentTaskCode = String.Empty;
+                }
+                projectTasksList.Add(projectTask);
             }
             return projectTasksList;
         }

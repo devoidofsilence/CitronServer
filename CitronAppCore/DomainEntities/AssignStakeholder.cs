@@ -13,8 +13,8 @@ namespace CitronAppCore.DomainEntities
         public string ProjectName { get; set; }
         public string StakeholderCode { get; set; }
         public string StakeholderName { get; set; }
-        public string PowerOnProject { get; set; }
-        public string InterestOnProject { get; set; }
-        public string AssignAsKey { get; set; }
+        public int PowerOnProject { get; set; }
+        public int InterestOnProject { get; set; }
+        public bool AssignAsKey { get; set; }
     }
 }

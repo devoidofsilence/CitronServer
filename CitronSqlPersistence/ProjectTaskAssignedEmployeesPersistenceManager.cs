@@ -16,7 +16,7 @@ namespace CitronSqlPersistence
         {
             var dh = new TempDataHolder();
             Delete(projectTask);
-            var projectTaskSelected = db.ProjectPersistenceEntities.FirstOrDefault(e => e.Code == projectTask.Code);
+            var projectTaskSelected = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.Code == projectTask.Code);
             if (projectTask.AssignedEmployees != null)
             {
                 foreach (var item in projectTask.AssignedEmployees)
@@ -31,19 +31,20 @@ namespace CitronSqlPersistence
                     }
                     var projectTaskAssignedEmployeesPersistenceEntity = new ProjectTaskAssignedEmployeesPersistenceEntity();
                     projectTaskAssignedEmployeesPersistenceEntity.EmployeeID = dh.employeeID ?? default(int);
-                    projectTaskAssignedEmployeesPersistenceEntity.ProjectTaskID = projectTaskSelected.ID;
+                    projectTaskAssignedEmployeesPersistenceEntity.ProjectTskID = projectTaskSelected.ID;
                     db.ProjectTaskAssignedEmployeesPersistenceEntities.Add(projectTaskAssignedEmployeesPersistenceEntity);
                 }
             }
 
             db.SaveChanges();
+            //db.Refresh(RefreshMode.ClientWins, db.ProjectTaskAssignedEmployeesPersistenceEntities);
             return projectTask;
         }
 
         public ProjectTask Delete(ProjectTask projectTask)
         {
             var projectTaskSelected = db.ProjectTaskPersistenceEntities.FirstOrDefault(e => e.Code == projectTask.Code);
-            var projectTaskAssignedEmployeesPersistenceEntity = db.ProjectTaskAssignedEmployeesPersistenceEntities.Where(e => e.ProjectTaskID == projectTaskSelected.ID);
+            var projectTaskAssignedEmployeesPersistenceEntity = db.ProjectTaskAssignedEmployeesPersistenceEntities.Where(e => e.ProjectTskID == projectTaskSelected.ID);
             foreach (var item in projectTaskAssignedEmployeesPersistenceEntity)
             {
                 db.ProjectTaskAssignedEmployeesPersistenceEntities.Remove(item);

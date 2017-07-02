@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -172,6 +173,38 @@
     <Compile Include="Migrations\201706210632205_Added Note field in Project Charter Questions.Designer.cs">
       <DependentUpon>201706210632205_Added Note field in Project Charter Questions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706220617040_Changes in db.cs" />
+    <Compile Include="Migrations\201706220617040_Changes in db.Designer.cs">
+      <DependentUpon>201706220617040_Changes in db.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706220842136_Changed assign as key to bool.cs" />
+    <Compile Include="Migrations\201706220842136_Changed assign as key to bool.Designer.cs">
+      <DependentUpon>201706220842136_Changed assign as key to bool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706220850099_changed ratings to int.cs" />
+    <Compile Include="Migrations\201706220850099_changed ratings to int.Designer.cs">
+      <DependentUpon>201706220850099_changed ratings to int.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706250059053_changed assigned employees in task table.cs" />
+    <Compile Include="Migrations\201706250059053_changed assigned employees in task table.Designer.cs">
+      <DependentUpon>201706250059053_changed assigned employees in task table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706250121355_changed assigned employees in task table 2.cs" />
+    <Compile Include="Migrations\201706250121355_changed assigned employees in task table 2.Designer.cs">
+      <DependentUpon>201706250121355_changed assigned employees in task table 2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706250154111_changed assigned employees in task table 3.cs" />
+    <Compile Include="Migrations\201706250154111_changed assigned employees in task table 3.Designer.cs">
+      <DependentUpon>201706250154111_changed assigned employees in task table 3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706250201159_changed assigned employees in task table 4.cs" />
+    <Compile Include="Migrations\201706250201159_changed assigned employees in task table 4.Designer.cs">
+      <DependentUpon>201706250201159_changed assigned employees in task table 4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706261100057_Probable Changes.cs" />
+    <Compile Include="Migrations\201706261100057_Probable Changes.Designer.cs">
+      <DependentUpon>201706261100057_Probable Changes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PersistenceEntities\AssignStakeholderPersistenceEntity.cs" />
     <Compile Include="PersistenceEntities\EmployeeAccountDetailPersistenceEntity.cs" />
@@ -289,6 +322,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706210632205_Added Note field in Project Charter Questions.resx">
       <DependentUpon>201706210632205_Added Note field in Project Charter Questions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706220617040_Changes in db.resx">
+      <DependentUpon>201706220617040_Changes in db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706220842136_Changed assign as key to bool.resx">
+      <DependentUpon>201706220842136_Changed assign as key to bool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706220850099_changed ratings to int.resx">
+      <DependentUpon>201706220850099_changed ratings to int.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706250059053_changed assigned employees in task table.resx">
+      <DependentUpon>201706250059053_changed assigned employees in task table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706250121355_changed assigned employees in task table 2.resx">
+      <DependentUpon>201706250121355_changed assigned employees in task table 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706250154111_changed assigned employees in task table 3.resx">
+      <DependentUpon>201706250154111_changed assigned employees in task table 3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706250201159_changed assigned employees in task table 4.resx">
+      <DependentUpon>201706250201159_changed assigned employees in task table 4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706261100057_Probable Changes.resx">
+      <DependentUpon>201706261100057_Probable Changes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

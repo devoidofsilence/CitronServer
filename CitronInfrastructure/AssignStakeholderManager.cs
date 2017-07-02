@@ -59,7 +59,7 @@ namespace CitronInfrastructure
                 var foundStakeholder = _assignStakeholderPersistenceManager.Find(lstIDS);
                 if (!string.IsNullOrEmpty(foundStakeholder.ProjectCode))
                 {
-                    _assignStakeholderPersistenceManager.Create(stakeholder);
+                    _assignStakeholderPersistenceManager.Update(stakeholder);
                 }
                 else
                 {

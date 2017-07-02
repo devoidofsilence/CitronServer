@@ -16,13 +16,30 @@ namespace CitronSqlPersistence
         public AssignStakeholder Create(AssignStakeholder assignStakeholder)
         {
             var dh = new TempDataHolder();
+            if (!string.IsNullOrEmpty(assignStakeholder.ProjectCode))
+            {
+                var projectPersistenceEntity = db.ProjectPersistenceEntities.FirstOrDefault(e => e.Code == assignStakeholder.ProjectCode);
+                if (projectPersistenceEntity != null)
+                {
+                    dh.projectID = projectPersistenceEntity.ID;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(assignStakeholder.StakeholderCode))
+            {
+                var stakeholderPersistenceEntity = db.StakeholderPersistenceEntities.FirstOrDefault(e => e.Code == assignStakeholder.StakeholderCode);
+                if (stakeholderPersistenceEntity != null)
+                {
+                    dh.stakeholderID = stakeholderPersistenceEntity.ID;
+                }
+            }
             var assignStakeholderPersistenceEntity = new AssignStakeholderPersistenceEntity()
             {
-                ProjectCode = assignStakeholder.ProjectCode.NullIfEmptyString(),
-                StakeholderCode = assignStakeholder.StakeholderCode.NullIfEmptyString(),
-                PowerOnProject = assignStakeholder.PowerOnProject.NullIfEmptyString(),
-                InterestOnProject = assignStakeholder.InterestOnProject.NullIfEmptyString(),
-                AssignedAsKey = assignStakeholder.AssignAsKey.NullIfEmptyString(),
+                ProjectId = dh.projectID,
+                StakeholderId = dh.stakeholderID,
+                PowerOnProject = assignStakeholder.PowerOnProject,
+                InterestOnProject = assignStakeholder.InterestOnProject,
+                AssignedAsKey = assignStakeholder.AssignAsKey,
             };
 
             db.AssignStakeholderPersistenceEntities.Add(assignStakeholderPersistenceEntity);
@@ -32,7 +49,25 @@ namespace CitronSqlPersistence
 
         public AssignStakeholder Delete(AssignStakeholder assignStakeholder)
         {
-            var assignStakeholderPersistenceEntity = db.AssignStakeholderPersistenceEntities.FirstOrDefault(e => e.ProjectCode == assignStakeholder.ProjectCode && e.StakeholderCode == assignStakeholder.StakeholderCode);
+            var dh = new TempDataHolder();
+            if (!string.IsNullOrEmpty(assignStakeholder.ProjectCode))
+            {
+                var projectPersistenceEntity = db.ProjectPersistenceEntities.FirstOrDefault(e => e.Code == assignStakeholder.ProjectCode);
+                if (projectPersistenceEntity != null)
+                {
+                    dh.projectID = projectPersistenceEntity.ID;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(assignStakeholder.StakeholderCode))
+            {
+                var stakeholderPersistenceEntity = db.StakeholderPersistenceEntities.FirstOrDefault(e => e.Code == assignStakeholder.StakeholderCode);
+                if (stakeholderPersistenceEntity != null)
+                {
+                    dh.stakeholderID = stakeholderPersistenceEntity.ID;
+                }
+            }
+            var assignStakeholderPersistenceEntity = db.AssignStakeholderPersistenceEntities.FirstOrDefault(e => e.ProjectId == dh.projectID && e.StakeholderId == dh.stakeholderID);
             db.AssignStakeholderPersistenceEntities.Remove(assignStakeholderPersistenceEntity);
 
             db.SaveChanges();
@@ -42,13 +77,33 @@ namespace CitronSqlPersistence
         public AssignStakeholder Find(object id)
         {
             List<string> codes = ((List<string>)id);
-            var stakeholdersPersistenceEntity = db.AssignStakeholderPersistenceEntities.FirstOrDefault(e => e.ProjectCode == codes[0].ToString() && e.StakeholderCode == codes[1].ToString());
+            var dh = new TempDataHolder();
+            if (!string.IsNullOrEmpty(codes[0]))
+            {
+                string prjCode = codes[0].NullIfEmptyString();
+                var projectPersistenceEntity = db.ProjectPersistenceEntities.FirstOrDefault(e => e.Code == prjCode);
+                if (projectPersistenceEntity != null)
+                {
+                    dh.projectID = projectPersistenceEntity.ID;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(codes[1]))
+            {
+                string stakeholderCode = codes[1].NullIfEmptyString();
+                var stakeholderPersistenceEntity = db.StakeholderPersistenceEntities.FirstOrDefault(e => e.Code == stakeholderCode);
+                if (stakeholderPersistenceEntity != null)
+                {
+                    dh.stakeholderID = stakeholderPersistenceEntity.ID;
+                }
+            }
+            var stakeholdersPersistenceEntity = db.AssignStakeholderPersistenceEntities.FirstOrDefault(e => e.ProjectId == dh.projectID && e.StakeholderId == dh.stakeholderID);
 
             AssignStakeholder stakeholder = new AssignStakeholder();
             if (stakeholdersPersistenceEntity != null)
             {
-                stakeholder.ProjectCode = stakeholdersPersistenceEntity.ProjectCode;
-                stakeholder.StakeholderCode = stakeholdersPersistenceEntity.StakeholderCode;
+                stakeholder.ProjectCode = codes[0].NullIfEmptyString();
+                stakeholder.StakeholderCode = codes[1].NullIfEmptyString();
                 stakeholder.PowerOnProject = stakeholdersPersistenceEntity.PowerOnProject;
                 stakeholder.InterestOnProject = stakeholdersPersistenceEntity.InterestOnProject;
                 stakeholder.AssignAsKey = stakeholdersPersistenceEntity.AssignedAsKey;
@@ -61,9 +116,9 @@ namespace CitronSqlPersistence
             IList<AssignStakeholder> assignedStakeholdersList = new List<AssignStakeholder>();
 
             var aggregatedTable = (from assignedStakeholderTable in db.AssignStakeholderPersistenceEntities
-                                   join projectTable in db.ProjectPersistenceEntities on assignedStakeholderTable.ProjectCode equals projectTable.Code into aspJoin
+                                   join projectTable in db.ProjectPersistenceEntities on assignedStakeholderTable.ProjectId equals projectTable.ID into aspJoin
                                    from asp in aspJoin.DefaultIfEmpty()
-                                   join stakeholderTable in db.StakeholderPersistenceEntities on assignedStakeholderTable.StakeholderCode equals stakeholderTable.Code into saspJoin
+                                   join stakeholderTable in db.StakeholderPersistenceEntities on assignedStakeholderTable.StakeholderId equals stakeholderTable.ID into saspJoin
                                    from sasp in saspJoin.DefaultIfEmpty()
                                    select new { AssignedStakeholder = assignedStakeholderTable, Project = asp, Stakeholder = sasp });
 
@@ -73,9 +128,9 @@ namespace CitronSqlPersistence
             {
                     assignedStakeholdersList.Add(new AssignStakeholder
                     {
-                        ProjectCode = assignStakeholdersPersistenceEntity.AssignedStakeholder.ProjectCode,
+                        ProjectCode = assignStakeholdersPersistenceEntity.Project.Code,
                         ProjectName = assignStakeholdersPersistenceEntity.Project.Name,
-                        StakeholderCode = assignStakeholdersPersistenceEntity.AssignedStakeholder.StakeholderCode,
+                        StakeholderCode = assignStakeholdersPersistenceEntity.Stakeholder.Code,
                         StakeholderName = assignStakeholdersPersistenceEntity.Stakeholder.Name,
                         PowerOnProject = assignStakeholdersPersistenceEntity.AssignedStakeholder.PowerOnProject,
                         InterestOnProject = assignStakeholdersPersistenceEntity.AssignedStakeholder.InterestOnProject,
@@ -93,10 +148,27 @@ namespace CitronSqlPersistence
         public AssignStakeholder Update(AssignStakeholder assignStakeholder)
         {
             var dh = new TempDataHolder();
-            var assignStakeholderPersistenceEntity = db.AssignStakeholderPersistenceEntities.FirstOrDefault(e => e.ProjectCode == assignStakeholder.ProjectCode && e.StakeholderCode == assignStakeholder.StakeholderCode);
-            assignStakeholderPersistenceEntity.PowerOnProject = assignStakeholder.PowerOnProject.NullIfEmptyString();
-            assignStakeholderPersistenceEntity.InterestOnProject = assignStakeholder.InterestOnProject.NullIfEmptyString();
-            assignStakeholderPersistenceEntity.AssignedAsKey = assignStakeholder.AssignAsKey.NullIfEmptyString();
+            if (!string.IsNullOrEmpty(assignStakeholder.ProjectCode))
+            {
+                var projectPersistenceEntity = db.ProjectPersistenceEntities.FirstOrDefault(e => e.Code == assignStakeholder.ProjectCode);
+                if (projectPersistenceEntity != null)
+                {
+                    dh.projectID = projectPersistenceEntity.ID;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(assignStakeholder.StakeholderCode))
+            {
+                var stakeholderPersistenceEntity = db.StakeholderPersistenceEntities.FirstOrDefault(e => e.Code == assignStakeholder.StakeholderCode);
+                if (stakeholderPersistenceEntity != null)
+                {
+                    dh.stakeholderID = stakeholderPersistenceEntity.ID;
+                }
+            }
+            var assignStakeholderPersistenceEntity = db.AssignStakeholderPersistenceEntities.FirstOrDefault(e => e.ProjectId == dh.projectID && e.StakeholderId == dh.stakeholderID);
+            assignStakeholderPersistenceEntity.PowerOnProject = assignStakeholder.PowerOnProject;
+            assignStakeholderPersistenceEntity.InterestOnProject = assignStakeholder.InterestOnProject;
+            assignStakeholderPersistenceEntity.AssignedAsKey = assignStakeholder.AssignAsKey;
 
             db.SaveChanges();
             return assignStakeholder;

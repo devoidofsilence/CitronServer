@@ -17,11 +17,11 @@ namespace CitronSqlPersistence.PersistenceEntities
         //    get { return string.Concat("ASSTK", ID); }
         //}
         [Required]
-        public string ProjectCode { get; set; }
+        public int? ProjectId { get; set; }
         [Required]
-        public string StakeholderCode { get; set; }
-        public string PowerOnProject { get; set; }
-        public string InterestOnProject { get; set; }
-        public string AssignedAsKey { get; set; }
+        public int? StakeholderId { get; set; }
+        public int PowerOnProject { get; set; }
+        public int InterestOnProject { get; set; }
+        public bool AssignedAsKey { get; set; }
     }
 }

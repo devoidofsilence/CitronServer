@@ -33,11 +33,13 @@ namespace CitronSqlPersistence
         public string allowanceTypeCode = null;
 
         public int? projectID = null;
+        public int? stakeholderID = null;
         public int? parentTaskID = null;
         public int? responsibleEmployeeID = null;
 
         public string parentTaskCode = null;
         public string projectCode = null;
+        public string stakeholderCode = null;
         public string responsibleEmployeeCode = null;
 
         public int? projectCharterQuestionHeaderID = null;
