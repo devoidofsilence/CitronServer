@@ -67,8 +67,16 @@ namespace CitronSqlPersistence
                     dh.stakeholderID = stakeholderPersistenceEntity.ID;
                 }
             }
-            var assignStakeholderPersistenceEntity = db.AssignStakeholderPersistenceEntities.FirstOrDefault(e => e.ProjectId == dh.projectID && e.StakeholderId == dh.stakeholderID);
-            db.AssignStakeholderPersistenceEntities.Remove(assignStakeholderPersistenceEntity);
+            if (string.IsNullOrEmpty(assignStakeholder.ProjectCode))
+            {
+                var assignStakeholderPersistenceEntity = db.AssignStakeholderPersistenceEntities.FirstOrDefault(e => e.StakeholderId == dh.stakeholderID);
+                db.AssignStakeholderPersistenceEntities.Remove(assignStakeholderPersistenceEntity);
+            }
+            else
+            {
+                var assignStakeholderPersistenceEntity = db.AssignStakeholderPersistenceEntities.FirstOrDefault(e => e.ProjectId == dh.projectID && e.StakeholderId == dh.stakeholderID);
+                db.AssignStakeholderPersistenceEntities.Remove(assignStakeholderPersistenceEntity);
+            }
 
             db.SaveChanges();
             return assignStakeholder;

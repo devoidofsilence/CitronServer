@@ -253,15 +253,15 @@
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="static\css\animate.c6c1195cea1f8c360d70e46bb833520c.css" />
-    <Content Include="static\css\stylesheet.0ecf46edf43933aedc85fa5add3930e2.css" />
+    <Content Include="static\css\stylesheet.818abfd5d83f949a58afce91667b0d8a.css" />
     <Content Include="static\js\animate.6d8ef4a3382f03a25117.js" />
-    <Content Include="static\js\app.f1432c522cec8b6c7497.js" />
+    <Content Include="static\js\app.f25f168983e69188569d.js" />
     <Content Include="static\js\jquery-ui.js" />
     <Content Include="static\js\jquery.simpler-sidebar.min.js" />
     <Content Include="static\js\main-sidebar-right-top.js" />
-    <Content Include="static\js\manifest.f0133d415fdc2be058e8.js" />
+    <Content Include="static\js\manifest.98dd3b12fe9d3ad173b3.js" />
     <Content Include="static\js\stylesheet.215c82ebcaee428cffad.js" />
-    <Content Include="static\js\vendor.9149c52680fbc9c8f750.js" />
+    <Content Include="static\js\vendor.adf73b3b8e7cd768e35f.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -299,12 +299,12 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="static\css\animate.c6c1195cea1f8c360d70e46bb833520c.css.map" />
-    <Content Include="static\css\stylesheet.0ecf46edf43933aedc85fa5add3930e2.css.map" />
+    <Content Include="static\css\stylesheet.818abfd5d83f949a58afce91667b0d8a.css.map" />
     <Content Include="static\js\animate.6d8ef4a3382f03a25117.js.map" />
-    <Content Include="static\js\app.f1432c522cec8b6c7497.js.map" />
-    <Content Include="static\js\manifest.f0133d415fdc2be058e8.js.map" />
+    <Content Include="static\js\app.f25f168983e69188569d.js.map" />
+    <Content Include="static\js\manifest.98dd3b12fe9d3ad173b3.js.map" />
     <Content Include="static\js\stylesheet.215c82ebcaee428cffad.js.map" />
-    <Content Include="static\js\vendor.9149c52680fbc9c8f750.js.map" />
+    <Content Include="static\js\vendor.adf73b3b8e7cd768e35f.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

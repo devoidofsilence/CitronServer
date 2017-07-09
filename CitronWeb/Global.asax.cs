@@ -129,7 +129,7 @@ namespace CitronWeb
 
             builder.RegisterType<StakeholderManager>()
                    .As<IStakeholderManager>()
-                   .UsingConstructor(typeof(IStakeholderPersistenceManager));
+                   .UsingConstructor(typeof(IStakeholderPersistenceManager), typeof(IAssignStakeholderPersistenceManager));
             builder.RegisterInstance(new StakeholderPersistenceManager())
                    .As<IStakeholderPersistenceManager>();
 

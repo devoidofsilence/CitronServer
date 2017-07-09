@@ -12,9 +12,11 @@ namespace CitronInfrastructure
     public class StakeholderManager : IStakeholderManager
     {
         IStakeholderPersistenceManager _stakeholderPersistenceManager;
-        public StakeholderManager(IStakeholderPersistenceManager stakeholderPersistenceManager)
+        IAssignStakeholderPersistenceManager _assignedStakeholderPersistenceManager;
+        public StakeholderManager(IStakeholderPersistenceManager stakeholderPersistenceManager, IAssignStakeholderPersistenceManager assignedStakeholderPersistenceManager)
         {
             _stakeholderPersistenceManager = stakeholderPersistenceManager;
+            _assignedStakeholderPersistenceManager = assignedStakeholderPersistenceManager;
         }
         public List<Stakeholder> CreateStakeholder(List<Stakeholder> stakeholders)
         {
@@ -35,6 +37,9 @@ namespace CitronInfrastructure
 
         public Stakeholder DeleteStakeholder(Stakeholder stakeholder)
         {
+            AssignStakeholder assignStakeholder = new AssignStakeholder();
+            assignStakeholder.StakeholderCode = stakeholder.Code;
+            _assignedStakeholderPersistenceManager.Delete(assignStakeholder);
             _stakeholderPersistenceManager.Delete(stakeholder);
             return stakeholder;
         }
